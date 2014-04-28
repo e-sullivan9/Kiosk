@@ -52,6 +52,7 @@ public class DisabilityKiosk extends JFrame
      */
     //info_Panel = new InfoPanel();
     //label_Panel = new LabelPanel();
+    Admin.deSerialize();
     labelsAndFields = new LabelsAndFieldsPanel();
     submit_Panel = new SubmitPanel();
     submit_Panel.admin.addActionListener(new AdminButtonListener());
@@ -90,6 +91,7 @@ public class DisabilityKiosk extends JFrame
       {
           if (e.getSource() == submit_Panel.close)
           {
+        	  Admin.serialize();
               new LoginFrame();
               setVisible(false);
               dispose();
