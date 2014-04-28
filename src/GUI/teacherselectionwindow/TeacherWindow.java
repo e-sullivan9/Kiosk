@@ -5,11 +5,13 @@
  */
 
 package GUI.teacherselectionwindow;
+import java.io.*;
 import disabilitykiosk.*;
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import java.awt.event.*;
+import Backend.*;
 
 /**
  *
@@ -24,6 +26,7 @@ public class TeacherWindow extends JFrame
   private GUI.teacherselectionwindow.GreetingsPanel greetings_Panel;
   //private GUI.teacherwindow.InfoPanel info_Panel;
   private GUI.teacherselectionwindow.SubmitPanel submit_Panel;
+  private User user;
   
     public TeacherWindow()
   {
@@ -43,6 +46,21 @@ public class TeacherWindow extends JFrame
     setResizable(false);
   }
     
+    public TeacherWindow(User user)
+    {
+        setTitle("Teacher Selection Window");
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setLayout(new BorderLayout());
+        
+        buildPanels();
+        setLocationRelativeTo(null);
+        //Make the window visable
+        setVisible(true);
+        setResizable(false);
+        
+        this.user = user;
+    }
     public void buildPanels()
     {
     greetings_Panel = new GreetingsPanel();    
@@ -61,6 +79,20 @@ public class TeacherWindow extends JFrame
           {
               if (e.getSource() == submit_Panel.submit)
               {
+                  
+                  try {
+              	Data.open();
+                user.newVisit(Data.chooseTable("visits"));
+//
+//							
+//              	
+//					User.newVisit(Data.chooseTable("visits"),temp, labelsAndFields.reasonI.getSelectedItem().toString(), 
+//							"wellesley" , labelsAndFields.emailI.getText() , labelsAndFields.firstI.getText() , labelsAndFields.lastI.getText() , 
+//							labelsAndFields.roleI.getSelectedItem().toString() ,  
+//							labelsAndFields.phoneI.getText(), "Enter specialist"); //reference speacilist!!
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
                   //disabilitykiosk.setVisible(false);
                   new DisabilityKiosk();
                   setVisible(false);
@@ -79,4 +111,5 @@ public class TeacherWindow extends JFrame
 //            }
 //        }
 //    }
+}
 }

@@ -106,28 +106,28 @@ public class DisabilityKiosk extends JFrame
           if (e.getSource() == submit_Panel.submit)
           {
               setVisible(false);
-              
+              new TeacherWindow();
               boolean temp;
               if(labelsAndFields.followUpI.getSelectedItem() == "Yes")
               	temp = true;
               else
               	temp = false;
               
-              try {
-              	Data.open();
-
-							
-              	
-					User.newVisit(Data.chooseTable("visits"),temp, labelsAndFields.reasonI.getSelectedItem().toString(), 
-							"wellesley" , labelsAndFields.emailI.getText() , labelsAndFields.firstI.getText() , labelsAndFields.lastI.getText() , 
-							labelsAndFields.roleI.getSelectedItem().toString() ,  
-							labelsAndFields.phoneI.getText(), "Enter specialist"); //reference speacilist!!
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+//              try {
+//              	Data.open();
+//
+//							
+//              	
+//					User.newVisit(Data.chooseTable("visits"),temp, labelsAndFields.reasonI.getSelectedItem().toString(), 
+//							"wellesley" , labelsAndFields.emailI.getText() , labelsAndFields.firstI.getText() , labelsAndFields.lastI.getText() , 
+//							labelsAndFields.roleI.getSelectedItem().toString() ,  
+//							labelsAndFields.phoneI.getText(), "Enter specialist"); //reference speacilist!!
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
           			
-             new DisabilityKiosk();
+//             new DisabilityKiosk();
           }
       }
   }
