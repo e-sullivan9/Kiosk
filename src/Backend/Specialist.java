@@ -6,14 +6,80 @@
 
 package Backend;
 
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Eric Sullivan
  */
-public class Specialist extends User{
+public class Specialist{
+    ImageIcon photo;
+    String email;
+    String fName; 
+    String lname;
+    String role;
+    String phone;
 
-    public Specialist(boolean follow, String reason, String location, String email, String fName, String lname, String role, String phone) {
-        super(follow, reason, location, email, fName, lname, role, phone);
+    public Specialist(ImageIcon photo, String email, String fName, String lname, String role, String phone) {
+        this.photo=photo;
+        this.email =email;
+        this.fName=fName;
+        this.lname=lname;
+        
+    }
+     public ImageIcon getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(ImageIcon photo) {
+        this.photo = photo;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getfName() {
+        return fName;
+    }
+
+    public void setfName(String fName) {
+        this.fName = fName;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
     
     

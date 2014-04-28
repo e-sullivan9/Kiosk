@@ -116,7 +116,7 @@ public class Admin {
     	try{
             FileOutputStream fos= new FileOutputStream("admins");
             ObjectOutputStream oos= new ObjectOutputStream(fos);
-            System.out.println("lol");
+            //System.out.println("lol");
             oos.writeObject(admins);
             oos.close();
             fos.close();
@@ -141,9 +141,6 @@ public class Admin {
              c.printStackTrace();
              return;
           }
-    	for(AdminAccount addmin: admins){
-            System.out.println(addmin.getUsername());
-        }
     }
 
     public void deleteRow(String query, String key){
