@@ -23,14 +23,39 @@ import static org.joda.time.LocalTime.*;
 import org.joda.time.format.DateTimeFormat;
 
 public class User {
+    private boolean follow;
+    private String reason;
+    private String location;
+    private String email;
+    private String fName;
+    private String lName;
+    private String role;
+    private String phone;
+    private String specialist;
+    
+    public User(boolean follow, String reason, String location, String email,
+            String fName, String lname, String role, String phone)
+    {
+        this.follow = follow;
+        this.reason = reason;
+        this.location = location;
+        this.email = email;
+        this.fName = fName;
+        this.lName = lName;
+        this.role = role;
+        this.phone = phone;
+    }
 
+    public void setSpecialist(String specialist)
+    {
+        this.specialist = specialist;
+    }
+    
 	DateTimeFormat timeForm;
 	DateTimeFormat dateForm;
 	DateTime dt = new DateTime();
 
-	public static void newVisit(Table tab, boolean follow, String reason,
-			String location, String email, String fName, String lName,
-			String role, String phone, String specialist) throws IOException {
+	public void newVisit(Table tab) throws IOException {
 		
 		Calendar cal = Calendar.getInstance();
 		LocalDate date = new LocalDate();

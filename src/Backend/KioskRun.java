@@ -40,7 +40,7 @@ public class KioskRun {
         
        Data data = new Data();
        Admin admin = new Admin();
-       User user = new User();
+       //User user = new User();
 
        DisabilityKiosk dk = new DisabilityKiosk();
     }
