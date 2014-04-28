@@ -118,7 +118,8 @@ public class DisabilityKiosk extends JFrame
               	
 					User.newVisit(Data.chooseTable("visits"),temp, labelsAndFields.reasonI.getSelectedItem().toString(), 
 							"wellesley" , labelsAndFields.emailI.getText() , labelsAndFields.firstI.getText() , labelsAndFields.lastI.getText() , 
-							labelsAndFields.roleI.getSelectedItem().toString() ,  labelsAndFields.phoneI.getText());
+							labelsAndFields.roleI.getSelectedItem().toString() ,  
+							labelsAndFields.phoneI.getText(), "Enter specialist"); //reference speacilist!!
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

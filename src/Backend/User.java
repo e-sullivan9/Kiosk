@@ -30,7 +30,7 @@ public class User {
 
 	public static void newVisit(Table tab, boolean follow, String reason,
 			String location, String email, String fName, String lName,
-			String role, String phone) throws IOException {
+			String role, String phone, String specialist) throws IOException {
 		
 		Calendar cal = Calendar.getInstance();
 		LocalDate date = new LocalDate();
@@ -38,7 +38,7 @@ public class User {
 		
 		newUser(Data.chooseTable("user"), fName, lName, email, phone, role);
 		tab.addRow(location, email, Column.AUTO_NUMBER, date.toDate(), reason,
-				follow, cal.getTime());
+				follow, cal.getTime(), specialist);
 	}
 
 	public static boolean checkUser(Table tab, String email) throws IOException {
