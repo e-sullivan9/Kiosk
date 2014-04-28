@@ -10,7 +10,7 @@ package TTS;
  *
  * @author Eric Sullivan
  */
-
+import javax.speech.*;
 import com.sun.speech.freetts.VoiceManager;
 
 /**
