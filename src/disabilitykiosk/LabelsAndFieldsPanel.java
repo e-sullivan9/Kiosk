@@ -1,5 +1,5 @@
-package disabilitykiosk;
 
+package disabilitykiosk;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -9,10 +9,19 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JButton;
+import java.util.ArrayList;
+import java.awt.event.*;
+import java.io.IOException;
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
+//import java.awt.setPreferredSize;
 
-/**
- *
+ /*
  * @author Spconway 4/26/2014
+ * @author Jacob Dwyer 4/28/2014
  */
 public class LabelsAndFieldsPanel extends JPanel{
     /*
@@ -28,6 +37,9 @@ public class LabelsAndFieldsPanel extends JPanel{
 	JComboBox followUpI;
 	JComboBox roleI;
     private JLabel date, time, first, last, email, phone, reason, followUp, role, dateI, timeI;
+    private JButton firstButton, lastButton, emailButton, phoneButton, reasonButton, followUpButton, roleButton;
+    private ArrayList<JButton> buttonList;
+    private ImageIcon microphone = new ImageIcon("microphone.jpg");
     
     /*
      * Character length for text fields
@@ -57,7 +69,10 @@ public class LabelsAndFieldsPanel extends JPanel{
         grid.fill = GridBagConstraints.HORIZONTAL;
         
         //date
-        date = new JLabel("Date");
+//        dateButton = new JButton();
+//        //dateButton.setPreferredSize(new Dimension(40, 40));
+//        dateButton.setIcon(microphone);
+        date = new JLabel("Date: ");
         date.setFont(font);
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 0;
@@ -65,7 +80,7 @@ public class LabelsAndFieldsPanel extends JPanel{
         add(date, grid);
         
         //dateI
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyy/MM/dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyy/MM/dd: ");
         dateI = new JLabel(dateFormat.format(todaysDate));
         dateI.setFont(textFieldFont);
         grid.gridx = GridBagConstraints.RELATIVE;
@@ -74,7 +89,7 @@ public class LabelsAndFieldsPanel extends JPanel{
         add(dateI, grid);
         
         //time
-        time = new JLabel("Time");
+        time = new JLabel("Time: ");
         time.setFont(font);
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 1;
@@ -82,7 +97,7 @@ public class LabelsAndFieldsPanel extends JPanel{
         add(time, grid);
         
         //timeI
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm: ");
         timeI = new JLabel(timeFormat.format(todaysDate));
         timeI.setFont(textFieldFont);
         grid.gridx = GridBagConstraints.RELATIVE;
@@ -91,11 +106,15 @@ public class LabelsAndFieldsPanel extends JPanel{
         add(timeI, grid);
         
         //first
-        first = new JLabel("First Name");
+        firstButton = new JButton();
+        firstButton.addActionListener(new firstButtonListener());
+        firstButton.setIcon(microphone);
+        first = new JLabel("First Name: ");
         first.setFont(font);
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 2;
-        grid.gridwidth = 2;
+        grid.gridwidth = 1;
+        add(firstButton, grid);
         add(first, grid);
         
         //firstI
@@ -107,11 +126,15 @@ public class LabelsAndFieldsPanel extends JPanel{
         add(firstI, grid);
         
         //last
-        last = new JLabel("Last Name");
+        lastButton = new JButton();
+        lastButton.addActionListener(new lastButtonListener());
+        lastButton.setIcon(microphone);
+        last = new JLabel("Last Name: ");
         last.setFont(font);
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 3;
-        grid.gridwidth = 2;
+        grid.gridwidth = 1;
+        add(lastButton, grid);
         add(last, grid);
         
         //lastI
@@ -123,11 +146,15 @@ public class LabelsAndFieldsPanel extends JPanel{
         add(lastI, grid);
         
         //role
-        role = new JLabel("Role");
+        roleButton = new JButton();
+        roleButton.addActionListener(new roleButtonListener());
+        roleButton.setIcon(microphone);
+        role = new JLabel("Role: ");
         role.setFont(font);
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 4;
-        grid.gridwidth = 2;
+        grid.gridwidth = 1;
+        add(roleButton, grid);
         add(role, grid);
         
         //RoleI
@@ -140,11 +167,15 @@ public class LabelsAndFieldsPanel extends JPanel{
         add(roleI, grid);
         
         //email
-        email = new JLabel("E-Mail");
+        emailButton = new JButton();
+        emailButton.addActionListener(new emailButtonListener());
+        emailButton.setIcon(microphone);
+        email = new JLabel("E-Mail: ");
         email.setFont(font);
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 5;
-        grid.gridwidth = 2;
+        grid.gridwidth = 1;
+        add(emailButton, grid);
         add(email, grid);
         
         //emailI
@@ -156,11 +187,15 @@ public class LabelsAndFieldsPanel extends JPanel{
         add(emailI, grid);
         
         //phone
-        phone = new JLabel("Phone #");
+        phoneButton = new JButton();
+        phoneButton.addActionListener(new phoneButtonListener());
+        phoneButton.setIcon(microphone);
+        phone = new JLabel("Phone #: ");
         phone.setFont(font);
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 6;
-        grid.gridwidth = 2;
+        grid.gridwidth = 1;
+        add(phoneButton, grid);
         add(phone, grid);
         
         //phoneI
@@ -172,11 +207,15 @@ public class LabelsAndFieldsPanel extends JPanel{
         add(phoneI, grid);
         
         //reason
-        reason = new JLabel("Reason");
+        reasonButton = new JButton();
+        reasonButton.addActionListener(new reasonButtonListener());
+        reasonButton.setIcon(microphone);
+        reason = new JLabel("Reason: ");
         reason.setFont(font);
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 7;
-        grid.gridwidth = 2;
+        grid.gridwidth = 1;
+        add(reasonButton, grid);
         add(reason, grid);
         
         //reasonI
@@ -193,11 +232,15 @@ public class LabelsAndFieldsPanel extends JPanel{
         add(reasonI, grid);
         
         //followUp
-        followUp = new JLabel("Follow up");
+        followUpButton = new JButton();
+        followUpButton.addActionListener(new followUpButtonListener());
+        followUpButton.setIcon(microphone);
+        followUp = new JLabel("Follow up: ");
         followUp.setFont(font);
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 8;
-        grid.gridwidth = 2;
+        grid.gridwidth = 1;
+        add(followUpButton, grid);
         add(followUp, grid);
         
         //followUpI
@@ -209,4 +252,154 @@ public class LabelsAndFieldsPanel extends JPanel{
         grid.gridwidth = 4;
         add(followUpI, grid);
     }
+    
+    
+    private class firstButtonListener implements ActionListener
+{
+    public void actionPerformed(ActionEvent e)
+    {
+        if (e.getSource() == firstButton)
+        {
+             VoiceManager vm = VoiceManager.getInstance();
+
+            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+            String text = "Please enter your first name in the text field";
+            String string[] = text.split("  ");
+            voice.allocate();
+            for (int i = 0; i < string.length; i++) {
+                voice.speak(text);
+
+       }
+       voice.deallocate();
+        }
+
+    }
+  }
+   private class lastButtonListener implements ActionListener
+{
+    public void actionPerformed(ActionEvent e)
+    {
+        if (e.getSource() ==  lastButton)
+        {
+             VoiceManager vm = VoiceManager.getInstance();
+
+            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+            String text = "Please enter your last name in the text field";
+            String string[] = text.split("  ");
+            voice.allocate();
+            for (int i = 0; i < string.length; i++) {
+                voice.speak(string[i]);
+
+       }
+       voice.deallocate();
+        }
+
+    }
+  }
+       private class emailButtonListener implements ActionListener
+{
+    public void actionPerformed(ActionEvent e)
+    {
+        if (e.getSource() == emailButton)
+        {
+             VoiceManager vm = VoiceManager.getInstance();
+
+            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+            String text = "Please enter your email address in the text field";
+            String string[] = text.split("  ");
+            voice.allocate();
+            for (int i = 0; i < string.length; i++) {
+                voice.speak(text);
+
+       }
+       voice.deallocate();
+        }
+
+    }
+  }
+           private class phoneButtonListener implements ActionListener
+{
+    public void actionPerformed(ActionEvent e)
+    {
+        if (e.getSource() == phoneButton)
+        {
+             VoiceManager vm = VoiceManager.getInstance();
+
+            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+            String text = "Please enter your phone number in the text field";
+            String string[] = text.split("  ");
+            voice.allocate();
+            for (int i = 0; i < string.length; i++) {
+                voice.speak(text);
+
+       }
+       voice.deallocate();
+        }
+
+    }
+  }
+               private class reasonButtonListener implements ActionListener
+{
+    public void actionPerformed(ActionEvent e)
+    {
+        if (e.getSource() == reasonButton)
+        {
+             VoiceManager vm = VoiceManager.getInstance();
+
+            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+            String text = "Please enter your reason for being here in the drop down list";
+            String string[] = text.split("  ");
+            voice.allocate();
+            for (int i = 0; i < string.length; i++) {
+                voice.speak(text);
+
+       }
+       voice.deallocate();
+        }
+
+    }
+  }
+
+               private class followUpButtonListener implements ActionListener
+{
+    public void actionPerformed(ActionEvent e)
+    {
+        if (e.getSource() == followUpButton)
+        {
+             VoiceManager vm = VoiceManager.getInstance();
+
+            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+            String text = "Please enter if this is a follow up visit. Yes or no";
+            String string[] = text.split("  ");
+            voice.allocate();
+            for (int i = 0; i < string.length; i++) {
+                voice.speak(text);
+
+       }
+       voice.deallocate();
+        }
+
+    }
+  }
+         private class roleButtonListener implements ActionListener
+{
+    public void actionPerformed(ActionEvent e)
+    {
+        if (e.getSource() == roleButton)
+        {
+             VoiceManager vm = VoiceManager.getInstance();
+
+            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+            String text = "Please enter your role with the school in the drop down list";
+            String string[] = text.split("  ");
+            voice.allocate();
+            for (int i = 0; i < string.length; i++) {
+                voice.speak(text);
+
+       }
+       voice.deallocate();
+        }
+
+    }
+  }
 }

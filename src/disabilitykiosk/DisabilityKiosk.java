@@ -10,6 +10,8 @@ import GUI.teacherselectionwindow.*;
 import Backend.*;
 import java.awt.*;
 import javax.swing.*;
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
 
 import java.awt.event.*;
 import java.io.IOException;
@@ -58,6 +60,10 @@ public class DisabilityKiosk extends JFrame
     submit_Panel.admin.addActionListener(new AdminButtonListener());
     submit_Panel.close.addActionListener(new CloseButtonListener());
     submit_Panel.submit.addActionListener(new SubmitButtonListener());
+    submit_Panel.submitSpeech.addActionListener(new SubmitSpeechButtonListener());
+    submit_Panel.closeSpeech.addActionListener(new CloseSpeechButtonListener());
+    submit_Panel.adminSpeech.addActionListener(new AdminSpeechButtonListener());
+    
     
     //Add the componets to the content pane
     add(greetings_Panel, BorderLayout.NORTH);
@@ -130,5 +136,70 @@ public class DisabilityKiosk extends JFrame
 //             new DisabilityKiosk();
           }
       }
+  }
+  
+           private class SubmitSpeechButtonListener implements ActionListener
+{
+    public void actionPerformed(ActionEvent e)
+    {
+        if (e.getSource() == submit_Panel.submitSpeech)
+        {
+             VoiceManager vm = VoiceManager.getInstance();
+
+            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+            String text = "Click to submit your answers";
+            String string[] = text.split("  ");
+            voice.allocate();
+            for (int i = 0; i < string.length; i++) {
+                voice.speak(text);
+
+       }
+       voice.deallocate();
+        }
+
+    }
+  }
+           
+        private class CloseSpeechButtonListener implements ActionListener
+{
+    public void actionPerformed(ActionEvent e)
+    {
+        if (e.getSource() == submit_Panel.closeSpeech)
+        {
+             VoiceManager vm = VoiceManager.getInstance();
+
+            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+            String text = "Click to close the window";
+            String string[] = text.split("  ");
+            voice.allocate();
+            for (int i = 0; i < string.length; i++) {
+                voice.speak(text);
+
+       }
+       voice.deallocate();
+        }
+
+    }
+  }
+      private class AdminSpeechButtonListener implements ActionListener
+{
+    public void actionPerformed(ActionEvent e)
+    {
+        if (e.getSource() == submit_Panel.adminSpeech)
+        {
+             VoiceManager vm = VoiceManager.getInstance();
+
+            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+            String text = "This is for administrators only.";
+            String string[] = text.split("  ");
+            voice.allocate();
+            for (int i = 0; i < string.length; i++) {
+                voice.speak(text);
+
+       }
+       voice.deallocate();
+        }
+
+    }
   }
     }
