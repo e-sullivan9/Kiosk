@@ -28,7 +28,7 @@ public class SpecialistList {
     private static ArrayList<Specialist> specs;
     
     public SpecialistList(){
-        specs = new ArrayList<>();
+        specs = new ArrayList<Specialist>();
     }
     
     public void addSpecialist(ImageIcon photo, String email, String fName, String lname, String role, String phone)

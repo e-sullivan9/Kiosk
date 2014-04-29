@@ -7,13 +7,16 @@
 package Backend;
 
 
+import java.io.Serializable;
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author Eric Sullivan
  */
-public class Specialist{
+public class Specialist  implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
     ImageIcon photo;
     String email;
     String fName; 
