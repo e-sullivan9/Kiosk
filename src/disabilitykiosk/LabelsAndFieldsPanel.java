@@ -349,6 +349,7 @@ public class LabelsAndFieldsPanel extends JPanel{
                phone.setFont(new Font("SERIF", Font.BOLD, source.getValue()));
                reason.setFont(new Font("SERIF", Font.BOLD, source.getValue()));
                followUp.setFont(new Font("SERIF", Font.BOLD, source.getValue()));
+               location.setFont(new Font("SERIF", Font.BOLD, source.getValue()));
             }
             
         }
