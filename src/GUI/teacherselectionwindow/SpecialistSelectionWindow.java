@@ -47,6 +47,9 @@ public class SpecialistSelectionWindow extends JFrame{
 		ArrayList<Backend.Specialist> specialistsList = Backend.SpecialistList.getSpecialList();
                 radioButtons = new ArrayList<JRadioButton>();
 		for(int i=0; i<specialistsList.size(); i++){
+                        /*
+                         * need to get the specialistsList.get(i).getPhoto() somehow
+                         */
 			String s = specialistsList.get(i).getfName() + " " + specialistsList.get(i).getLname();
 			//put faculty names in an array  
 			JRadioButton rButton = new JRadioButton(s);
