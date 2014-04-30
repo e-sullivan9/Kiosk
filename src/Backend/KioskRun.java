@@ -38,7 +38,10 @@ public class KioskRun {
     public static void main(String[] args) throws IOException {
        
         
+       SpecialistList s = new SpecialistList();
+       s.addSpecialist(null, "Eric", "Eric" , "Sullivan", "", "");
        Data data = new Data();
+       SpecialistList.serialize();
        Admin admin = new Admin();
        //User user = new User();
 

@@ -46,7 +46,7 @@ public class ReportWindow extends JFrame {
     private String[] datesPastYr;
 
     public ReportWindow() throws IOException {
-        super("Report Window");
+        super("Administrator Window");
 
         setExtendedState(Frame.MAXIMIZED_BOTH);
         //setUndecorated(true);
@@ -64,7 +64,7 @@ public class ReportWindow extends JFrame {
         comboPanel = new JPanel();
 
         reasonsComboBox = new JComboBox(reasons);
-        reasonsComboBox.addActionListener(new ComboBoxListener());
+        reasonsComboBox.addActionListener(new ReportWindow.ComboBoxListener());
 
         datesPastYr = new String[365];
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -112,15 +112,15 @@ public class ReportWindow extends JFrame {
         southPanel = new JPanel();
 
         addDeleteBtn = new JButton("Add / Delete Users");
-        addDeleteBtn.addActionListener(new ButtonListener());
+        addDeleteBtn.addActionListener(new ReportWindow.ButtonListener());
         southPanel.add(addDeleteBtn);
 
         printFileBtn = new JButton("Print File");
-        printFileBtn.addActionListener(new ButtonListener());
+        printFileBtn.addActionListener(new ReportWindow.ButtonListener());
         southPanel.add(printFileBtn);
 
         closeBtn = new JButton("Close");
-        closeBtn.addActionListener(new CloseButtonListener());
+        closeBtn.addActionListener(new ReportWindow.CloseButtonListener());
         southPanel.add(closeBtn);
 
 

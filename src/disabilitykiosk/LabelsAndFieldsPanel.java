@@ -1,27 +1,29 @@
-
 package disabilitykiosk;
+
+import com.sun.speech.freetts.VoiceManager;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.util.Hashtable;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JButton;
-import java.util.ArrayList;
-import java.awt.event.*;
-import java.io.IOException;
-import com.sun.speech.freetts.Voice;
-import com.sun.speech.freetts.VoiceManager;
-//import java.awt.setPreferredSize;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
- /*
+/**
+ *
  * @author Spconway 4/26/2014
- * @author Jacob Dwyer 4/28/2014
  */
 public class LabelsAndFieldsPanel extends JPanel{
     /*
@@ -36,10 +38,18 @@ public class LabelsAndFieldsPanel extends JPanel{
     JComboBox reasonI;
 	JComboBox followUpI;
 	JComboBox roleI;
-    private JLabel date, time, first, last, email, phone, reason, followUp, role, dateI, timeI;
-    private JButton firstButton, lastButton, emailButton, phoneButton, reasonButton, followUpButton, roleButton;
+        JComboBox locationI;
+    private JLabel date, time, first, last, email, phone, reason, followUp, role, dateI, timeI, location;
+    private JButton firstButton, locationButton, lastButton, emailButton, phoneButton, reasonButton, followUpButton, roleButton;
     private ArrayList<JButton> buttonList;
-    private ImageIcon microphone = new ImageIcon("microphone.jpg");
+    private ImageIcon microphone = new ImageIcon("src/microphone.jpg");
+    private JSlider textSlider;
+  /*
+   * Numbers for enlarging text
+   */
+    static final int TEXT_MIN = 18;
+    static final int TEXT_MAX = 32;
+    static final int TEXT_INIT = 24;
     
     /*
      * Character length for text fields
@@ -49,8 +59,9 @@ public class LabelsAndFieldsPanel extends JPanel{
     /*
      * Font for gridbag
      */
-    private Font font = new Font("SERIF", Font.PLAIN, 24);
-    private Font textFieldFont = new Font("SERIF", Font.PLAIN, 18);
+    public Font font = new Font("SERIF", Font.BOLD, 24);
+    public Font textFieldFont = new Font("SERIF", Font.PLAIN, 18);
+    
     
     /*
      * Constructor
@@ -69,18 +80,17 @@ public class LabelsAndFieldsPanel extends JPanel{
         grid.fill = GridBagConstraints.HORIZONTAL;
         
         //date
-//        dateButton = new JButton();
-//        //dateButton.setPreferredSize(new Dimension(40, 40));
-//        dateButton.setIcon(microphone);
-        date = new JLabel("Date: ");
+        date = new JLabel("Date");
         date.setFont(font);
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 0;
+        grid.ipadx = 40;
+        grid.ipady = 30;
         grid.gridwidth = 2;
         add(date, grid);
         
         //dateI
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyy/MM/dd: ");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyy/MM/dd");
         dateI = new JLabel(dateFormat.format(todaysDate));
         dateI.setFont(textFieldFont);
         grid.gridx = GridBagConstraints.RELATIVE;
@@ -89,7 +99,7 @@ public class LabelsAndFieldsPanel extends JPanel{
         add(dateI, grid);
         
         //time
-        time = new JLabel("Time: ");
+        time = new JLabel("Time");
         time.setFont(font);
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 1;
@@ -97,7 +107,7 @@ public class LabelsAndFieldsPanel extends JPanel{
         add(time, grid);
         
         //timeI
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm: ");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         timeI = new JLabel(timeFormat.format(todaysDate));
         timeI.setFont(textFieldFont);
         grid.gridx = GridBagConstraints.RELATIVE;
@@ -251,8 +261,98 @@ public class LabelsAndFieldsPanel extends JPanel{
         grid.gridy = 8;
         grid.gridwidth = 4;
         add(followUpI, grid);
+        
+        //location
+        locationButton = new JButton();
+        locationButton.addActionListener(new followUpButtonListener());
+        locationButton.setIcon(microphone);
+        location = new JLabel("Location: ");
+        location.setFont(font);
+        grid.gridx = GridBagConstraints.RELATIVE;
+        grid.gridy = 9;
+        grid.gridwidth = 1;
+        add(locationButton, grid);
+        add(location, grid);
+        
+        //LocationI
+        String[] locations = {"Framingham", "Wellesley", "Ashland"};
+        locationI = new JComboBox(locations);
+        locationI.setFont(textFieldFont);
+        grid.gridx = GridBagConstraints.RELATIVE;
+        grid.gridy = 9;
+        grid.gridwidth = 4;
+        add(locationI, grid);
+        
+        //Text slider
+        textSlider = new JSlider(JSlider.VERTICAL, TEXT_MIN, TEXT_MAX, TEXT_INIT);
+        textSlider.addChangeListener((new SliderListener()));
+        textSlider.setMajorTickSpacing(2);
+        
+        //Create the label table
+        Hashtable <Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
+        labelTable.put(new Integer(TEXT_MIN), new JLabel("Shrink text"));
+        labelTable.put(new Integer(TEXT_MAX), new JLabel("Enlarge text"));
+        
+        textSlider.setLabelTable(labelTable);
+        textSlider.setPaintLabels(true);
+        
+        grid.gridx = GridBagConstraints.RELATIVE;
+        grid.gridy = 0;
+        grid.ipadx = 40;
+        grid.gridheight = 4;
+        add(textSlider, grid);
+        
     }
-    
+    //Getters
+    public String getFirst(){
+        return this.firstI.getText();
+    }
+    public String getLast(){
+        return this.lastI.getText();
+    }
+    public String getRole(){
+        return this.roleI.getActionCommand();
+    }
+    public String getEmail(){
+        return this.emailI.getText();
+    }
+    public String getPhone(){
+        return this.phoneI.getText();
+    }
+    public String getReason(){
+        return this.reasonI.getActionCommand();
+    }
+    public boolean getFollowUp(){
+        if(this.followUpI.getSelectedItem()== "Yes"){
+            return true;
+        }else if(this.followUpI.getSelectedItem()== "No"){
+            return false;
+        }else{
+            return false;
+        }
+    }
+    public String getLocationInput(){
+        return this.locationI.getActionCommand();
+    }
+    private class SliderListener implements ChangeListener{
+        @Override
+        public void stateChanged(ChangeEvent e){
+            JSlider source = (JSlider)e.getSource();
+            
+            if(!source.getValueIsAdjusting()){
+               date.setFont(new Font("SERIF", Font.BOLD, source.getValue()));
+               time.setFont(new Font("SERIF", Font.BOLD, source.getValue()));
+               first.setFont(new Font("SERIF", Font.BOLD, source.getValue()));
+               last.setFont(new Font("SERIF", Font.BOLD, source.getValue()));
+               role.setFont(new Font("SERIF", Font.BOLD, source.getValue()));
+               email.setFont(new Font("SERIF", Font.BOLD, source.getValue()));
+               phone.setFont(new Font("SERIF", Font.BOLD, source.getValue()));
+               reason.setFont(new Font("SERIF", Font.BOLD, source.getValue()));
+               followUp.setFont(new Font("SERIF", Font.BOLD, source.getValue()));
+            }
+            
+        }
+    }
     
     private class firstButtonListener implements ActionListener
 {

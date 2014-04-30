@@ -14,8 +14,8 @@ import javax.swing.ImageIcon;
  *
  * @author Eric Sullivan
  */
-public class Specialist  implements Serializable{
-    
+public class Specialist implements Serializable
+{
     private static final long serialVersionUID = 1L;
     ImageIcon photo;
     String email;

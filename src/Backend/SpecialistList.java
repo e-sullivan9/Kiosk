@@ -23,12 +23,11 @@ import javax.swing.ImageIcon;
  *
  * @author Eric Sullivan
  */
-public class SpecialistList {
+public class SpecialistList{
     
-    private static ArrayList<Specialist> specs;
+    private static ArrayList<Specialist> specs = new ArrayList<>();
     
     public SpecialistList(){
-        specs = new ArrayList<Specialist>();
     }
     
     public void addSpecialist(ImageIcon photo, String email, String fName, String lname, String role, String phone)
@@ -47,7 +46,7 @@ public class SpecialistList {
     	}
     }
 
-    public ArrayList<Specialist> getSpecialList() {
+    public static ArrayList<Specialist> getSpecialList() {
 		return specs;
 	}
     

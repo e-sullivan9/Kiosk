@@ -6,15 +6,18 @@
 package disabilitykiosk;
 
 import GUI.loginwindow.*;
-import GUI.teacherselectionwindow.*;
+import GUI.teacherselectionwindow.SpecialistSelectionWindow;
 import Backend.*;
+import com.sun.speech.freetts.VoiceManager;
+import disabilitykiosk.LabelsAndFieldsPanel.*;
 import java.awt.*;
 import javax.swing.*;
-import com.sun.speech.freetts.Voice;
-import com.sun.speech.freetts.VoiceManager;
 
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.Hashtable;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -32,6 +35,7 @@ public class DisabilityKiosk extends JFrame
   //private final LabelPanel label_Panel;
   private final LabelsAndFieldsPanel labelsAndFields;
   private final SubmitPanel submit_Panel;
+  private Backend.User user;
   
   public DisabilityKiosk()
   {
@@ -63,7 +67,6 @@ public class DisabilityKiosk extends JFrame
     submit_Panel.submitSpeech.addActionListener(new SubmitSpeechButtonListener());
     submit_Panel.closeSpeech.addActionListener(new CloseSpeechButtonListener());
     submit_Panel.adminSpeech.addActionListener(new AdminSpeechButtonListener());
-    
     
     //Add the componets to the content pane
     add(greetings_Panel, BorderLayout.NORTH);
@@ -111,8 +114,12 @@ public class DisabilityKiosk extends JFrame
       {
           if (e.getSource() == submit_Panel.submit)
           {
+              user = new User(labelsAndFields.getFollowUp(), labelsAndFields.getReason(),
+                      labelsAndFields.getLocationInput(), labelsAndFields.getEmail(),
+                      labelsAndFields.getFirst(), labelsAndFields.getLast(),
+                      labelsAndFields.getRole(), labelsAndFields.getPhone());
               setVisible(false);
-              new TeacherWindow();
+              new GUI.teacherselectionwindow.SpecialistSelectionWindow(user);
               boolean temp;
               if(labelsAndFields.followUpI.getSelectedItem() == "Yes")
               	temp = true;
@@ -137,7 +144,6 @@ public class DisabilityKiosk extends JFrame
           }
       }
   }
-  
            private class SubmitSpeechButtonListener implements ActionListener
 {
     public void actionPerformed(ActionEvent e)
@@ -201,5 +207,5 @@ public class DisabilityKiosk extends JFrame
         }
 
     }
-  }
-    }
+  }  
+}

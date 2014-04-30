@@ -3,6 +3,7 @@ package GUI.adddeleteuser;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -14,9 +15,12 @@ import javax.swing.JTextField;
 public class InfoPanel extends JPanel{
     
     private final int CHAR_LENGTH = 30;
-    private JLabel first, last, email, userName, pass;
+    private JLabel first, last, location, email, userName, pass;
     private Font font = new Font("MONOSPACED", Font.PLAIN, 18);
+    //Need to make passT a JPassword field but after that we need to add another
+    //JPassword field to confirm password and check that both JPassword fields match
     private JTextField firstT, lastT, emailT, userNameT, passT;
+    private JComboBox locationI;
     
     public InfoPanel(){
         super(new GridBagLayout());
@@ -63,18 +67,34 @@ public class InfoPanel extends JPanel{
         grid.gridwidth = 2;
         add(lastT, grid);
         
+        //Location
+        location = new JLabel("Location");
+        location.setFont(font);
+        grid.gridx = 0;
+        grid.gridy = 2;
+        grid.gridwidth = 1;
+        add(location, grid);
+        
+        String[] locations = {"Framing", "Wellesley", "Ashland"};
+        locationI = new JComboBox(locations);
+     
+        grid.gridx = 1;
+        grid.gridy = 2;
+        grid.gridwidth = 2;
+        add(locationI, grid);
+        
         //Role
         email = new JLabel("E-Mail");
         email.setFont(font);
         grid.gridx = 0;
-        grid.gridy = 2;
+        grid.gridy = 3;
         grid.gridwidth = 1;
         add(email, grid);
         
         emailT = new JTextField(CHAR_LENGTH);
      
         grid.gridx = 1;
-        grid.gridy = 2;
+        grid.gridy = 3;
         grid.gridwidth = 2;
         add(emailT, grid);
         
@@ -82,14 +102,14 @@ public class InfoPanel extends JPanel{
         userName = new JLabel("User Name");
         userName.setFont(font);
         grid.gridx = 0;
-        grid.gridy = 3;
+        grid.gridy = 4;
         grid.gridwidth = 1;
         add(userName, grid);
         
         userNameT = new JTextField(CHAR_LENGTH);
      
         grid.gridx = 1;
-        grid.gridy = 3;
+        grid.gridy = 4;
         grid.gridwidth = 2;
         add(userNameT, grid);
         
@@ -97,14 +117,14 @@ public class InfoPanel extends JPanel{
         pass = new JLabel("Password");
         pass.setFont(font);
         grid.gridx = 0;
-        grid.gridy = 4;
+        grid.gridy = 5;
         grid.gridwidth = 1;
         add(pass, grid);
         
         passT = new JTextField(CHAR_LENGTH);
      
         grid.gridx = 1;
-        grid.gridy = 4;
+        grid.gridy = 5;
         grid.gridwidth = 2;
         add(passT, grid);
     }
@@ -128,5 +148,9 @@ public class InfoPanel extends JPanel{
     
     public String getPasswordText(){
         return passT.getText();
+    }
+    
+    public String getLocationText(){
+        return locationI.getActionCommand();
     }
 }

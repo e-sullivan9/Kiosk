@@ -31,10 +31,11 @@ public class User {
     private String lName;
     private String role;
     private String phone;
-    private String specialist;
+    private String specialistFirst;
+    private String specialistLast;
     
     public User(boolean follow, String reason, String location, String email,
-            String fName, String lname, String role, String phone)
+            String fName, String lName, String role, String phone)
     {
         this.follow = follow;
         this.reason = reason;
@@ -46,9 +47,10 @@ public class User {
         this.phone = phone;
     }
 
-    public void setSpecialist(String specialist)
+    public void setSpecialist(String specialistFirst, String specialistLast)
     {
-        this.specialist = specialist;
+        this.specialistFirst = specialistFirst;
+        this.specialistLast = specialistLast;
     }
     
 	DateTimeFormat timeForm;
@@ -63,7 +65,7 @@ public class User {
 		
 		newUser(Data.chooseTable("user"), fName, lName, email, phone, role);
 		tab.addRow(location, email, Column.AUTO_NUMBER, date.toDate(), reason,
-				follow, cal.getTime(), specialist);
+				follow, cal.getTime(), specialistFirst, specialistLast);
 	}
 
 	public static boolean checkUser(Table tab, String email) throws IOException {

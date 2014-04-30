@@ -11,7 +11,7 @@ public class SubmitPanel extends JPanel
 {
     public JButton submit, close, admin;
     public JButton submitSpeech, closeSpeech, adminSpeech;
-    private ImageIcon microphone = new ImageIcon("microphone.jpg");
+    private ImageIcon microphone = new ImageIcon("src/microphone.jpg");
     
     public SubmitPanel()
     {

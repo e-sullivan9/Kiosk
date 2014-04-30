@@ -7,6 +7,7 @@
 package GUI.loginwindow;
 import disabilitykiosk.*;
 import Backend.Admin;
+import Backend.SpecialistList;
 import GUI.reportwindow.*;
 
 import javax.swing.*;
@@ -86,6 +87,7 @@ public class TestFrame extends JFrame {
         public void actionPerformed(ActionEvent ee) {
             if (ee.getSource() == getCloseKioskButton()) {
             	Admin.serialize();
+                SpecialistList.serialize();
                 dispose();
                 // close app
                 System.exit(0);
