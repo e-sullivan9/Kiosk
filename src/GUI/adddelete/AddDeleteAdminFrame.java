@@ -29,6 +29,7 @@ import javax.swing.ListSelectionModel;
 
 /**
  * Created by Pat
+ * Edited by Cyrus
  */
 public class AddDeleteAdminFrame extends JFrame{
     private final int WINDOW_WIDTH = 450;
@@ -124,32 +125,78 @@ public class AddDeleteAdminFrame extends JFrame{
                 adminInput.add(Box.createHorizontalStrut(15));
                 adminInput.add(new JLabel("Password: "));
                 adminInput.add(pwInput);
-                int submitted = JOptionPane.showConfirmDialog(null, adminInput, "Please enter new Admin Username & Password.", JOptionPane.OK_CANCEL_OPTION);
+                int submitted = JOptionPane.showConfirmDialog(null, adminInput, "Please enter a username and password for the new account.", JOptionPane.OK_CANCEL_OPTION);
                 if (submitted == JOptionPane.OK_OPTION) {
                     Admin.admins.add(new AdminAccount(unInput.getText(), pwInput.getText()));
                     updateList();
                 }
-            } else if (e.getSource() == editBtn) {
-                JPanel adminInput = new JPanel();
-                JTextField unInput = new JTextField(10);
-                JPasswordField pwInput = new JPasswordField(10);
-                adminInput.add(new JLabel("Username: " ));
-                adminInput.add(unInput);
-                adminInput.add(Box.createHorizontalStrut(15));
-                adminInput.add(new JLabel("Password: "));
-                adminInput.add(pwInput);
-                int submitted = JOptionPane.showConfirmDialog(null, adminInput, "Please enter new Admin Username & Password for this Administrator.", JOptionPane.OK_CANCEL_OPTION);
-                if (submitted == JOptionPane.OK_OPTION) {
-                    Admin.admins.set(Admin.admins.indexOf(getAdmin()), new AdminAccount(unInput.getText(), pwInput.getText()));
-                    updateList();
+            } 
+            else if (e.getSource() == editBtn)
+            {
+                JPanel passCheck = new JPanel();
+                JPasswordField passInput = new JPasswordField(20);
+                passCheck.add(new JLabel("Password: "));
+                passCheck.add(passInput);
+                int entered = JOptionPane.showConfirmDialog(null, passCheck, "Please enter the current password for this account.", JOptionPane.OK_CANCEL_OPTION);
+                
+                if (entered == JOptionPane.OK_OPTION)
+                {
+                    if (passInput.getText().equals(getAdmin().getPassword()))
+                    {
+                        JPanel adminInput = new JPanel();
+                        JTextField unInput = new JTextField(10);
+                        JPasswordField pwInput = new JPasswordField(10);
+                        adminInput.add(new JLabel("Username: " ));
+                        adminInput.add(unInput);
+                        adminInput.add(Box.createHorizontalStrut(15));
+                        adminInput.add(new JLabel("Password: "));
+                        adminInput.add(pwInput);
+                        int submitted = JOptionPane.showConfirmDialog(null, adminInput, "Please enter a new username and password for this account.", JOptionPane.OK_CANCEL_OPTION);
+                        
+                        if (submitted == JOptionPane.OK_OPTION)
+                        {
+                            Admin.admins.set(Admin.admins.indexOf(getAdmin()), new AdminAccount(unInput.getText(), pwInput.getText()));
+                            updateList();
+                        }
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Incorrect Password.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-            } else if (e.getSource() == deleteBtn) {
-                if (Admin.admins.size() == 1) {
-                    JOptionPane.showMessageDialog(null, "Unable to delete the last Administrator.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    Admin.admins.remove(getAdmin());
+            }
+            else if (e.getSource() == deleteBtn)
+            {
+                if (Admin.admins.size() == 1)
+                {
+                    JOptionPane.showMessageDialog(null, "You cannot delete the last Administrator.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                updateList();
+                else 
+                {
+                    JPanel passCheck = new JPanel();
+                    JPasswordField passInput = new JPasswordField(20);
+                    passCheck.add(new JLabel("Password: "));
+                    passCheck.add(passInput);
+                    int entered = JOptionPane.showConfirmDialog(null, passCheck, "Please enter the current password for this account.", JOptionPane.OK_CANCEL_OPTION);
+                
+                    if (entered == JOptionPane.OK_OPTION)
+                    {
+                        if (passInput.getText().equals(getAdmin().getPassword()))
+                        {
+                            int entered2 = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this account?", "Verification", JOptionPane.YES_NO_OPTION);
+                            
+                            if (entered2 == JOptionPane.YES_OPTION)
+                            {
+                                Admin.admins.remove(getAdmin());
+                                updateList();
+                            }
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "Incorrect Password.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
             }
         }
     }
