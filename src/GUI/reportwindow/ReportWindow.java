@@ -138,7 +138,7 @@ public class ReportWindow extends JFrame {
         //setting up southPanel
         southPanel = new JPanel();
         
-        addDeleteAdminBtn = new JButton("Add / Delete Admin");
+        addDeleteAdminBtn = new JButton("Add / Delete Administrator");
         addDeleteAdminBtn.addActionListener(new ReportWindow.ButtonListener());
         southPanel.add(addDeleteAdminBtn);
 
