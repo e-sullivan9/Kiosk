@@ -112,20 +112,43 @@ public class DisabilityKiosk extends JFrame
   {
       public void actionPerformed(ActionEvent e)
       {
-          if (e.getSource() == submit_Panel.submit)
-          {
-              user = new User(labelsAndFields.getFollowUp(), labelsAndFields.getReason(),
+          boolean flag = true;
+            if( labelsAndFields.getEmail().length() == 0 )
+            {
+              flag = false;
+            }
+            else if (labelsAndFields.getLast().length() == 0 )
+            {
+              flag = false;
+              
+            }
+            else if(labelsAndFields.getFirst().length() == 0)
+            {
+              flag = false;
+            }
+            else if( labelsAndFields.getPhone().length() == 0)
+            {
+              flag  = false;
+            }
+            else if( flag = true)
+            {
+              boolean temp;
+                if(labelsAndFields.followUpI.getSelectedItem() == "Yes")
+                temp = true;
+              else
+                temp = false;
+               user = new User(labelsAndFields.getFollowUp(), labelsAndFields.getReason(),
                       labelsAndFields.getLocationInput(), labelsAndFields.getEmail(),
                       labelsAndFields.getFirst(), labelsAndFields.getLast(),
                       labelsAndFields.getRole(), labelsAndFields.getPhone());
+              
               setVisible(false);
               new GUI.teacherselectionwindow.SpecialistSelectionWindow(user);
-              boolean temp;
-              if(labelsAndFields.followUpI.getSelectedItem() == "Yes")
-              	temp = true;
-              else
-              	temp = false;
-          }
+            }
+            if(flag == false)
+            {
+              JOptionPane.showMessageDialog(null,"Please Enter the Correct Information","Incomplete",JOptionPane.ERROR_MESSAGE);
+            }
       }
   }
            private class SubmitSpeechButtonListener implements ActionListener
