@@ -34,7 +34,6 @@ public class ListPanel extends JPanel{
     private JList nList;
     private String[] namesList;
     
-    Specialist[] arr = new Specialist[specs.size()];
     
     private DefaultListModel dlm;
     private JScrollPane scroll;
@@ -48,16 +47,20 @@ public class ListPanel extends JPanel{
     private void buildPanel(){
         
        specLabel = new JLabel("Specialists");
+       
+       //to hold names for the Scroll Pane
        ArrayList<String> namesList = new ArrayList<String>();
        
+       //get the names of the Specialist objects
        for(int i = 0; i < specs.size(); i++){
            namesList.add(specs.get(i).getFullName());
        }
        
+       //one of these lists is used to display the names, they have the same index
        list = new JList(specs.toArray());
        nList = new JList(namesList.toArray());
        
-       
+       //add the scroll pane
        scroll = new JScrollPane(nList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
        
