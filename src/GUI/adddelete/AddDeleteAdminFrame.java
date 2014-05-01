@@ -41,7 +41,6 @@ public class AddDeleteAdminFrame extends JFrame
     
     public AddDeleteAdminFrame()
     {
-        //
         setTitle("Add/Delete Administrators");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setLayout(new BorderLayout());
