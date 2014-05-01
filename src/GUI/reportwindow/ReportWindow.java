@@ -273,6 +273,7 @@ public class ReportWindow extends JFrame {
         + addBuffer(row.get("reason").toString(), 40)
         + addBuffer(row.get("followUp").toString(), 15)
         + addBuffer(row.get("Specialist").toString(), 15)
+        + addBuffer(row.get("location").toString(), 15)
         + "\n";
 
       if (temp.contains(datesComboBox.getSelectedItem()
