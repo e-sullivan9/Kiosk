@@ -5,11 +5,15 @@ import GUI.adddelete.AddDeleteAdminFrame;
 import GUI.loginwindow.LoginFrame;
 import GUI.adddeleteuser.AddDeleteUserFrame;
 
+import com.healthmarketscience.jackcess.*;
+import com.healthmarketscience.jackcess.Cursor;
+import java.io.IOException;
+import java.util.Collections;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -18,6 +22,7 @@ import java.util.Scanner;
 
 import javax.swing.*;
 
+import com.healthmarketscience.jackcess.CursorBuilder;
 import com.healthmarketscience.jackcess.Row;
 
 /**
@@ -100,13 +105,31 @@ public class ReportWindow extends JFrame {
         textArea.setEditable(false);
         textArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
         addHeader();
-        String temp = "";
-        Data.open();
-        for (Row row: Data.chooseTable("visits"))
-        	temp += row + "\n";
-        Data.closeData();
-        textArea.append(temp);
 
+        Data.open();
+        try
+        {
+            Data.open();
+            String temp = "";
+            for (Row row: Data.chooseTable("visits"))
+            {
+                Table table = Data.chooseTable("user");
+                Cursor cursor = CursorBuilder.createCursor(table);
+                boolean found = cursor.findFirstRow(Collections.singletonMap("email", row.get("email")));
+
+                temp += addBuffer(row.get("visitTime").toString(),30) + addBuffer(cursor.getCurrentRowValue(table.getColumn("fName")).toString(),30)
+                        + addBuffer(cursor.getCurrentRowValue(table.getColumn("lName")).toString(),30) + addBuffer(row.get("email").toString(),30)
+                        + addBuffer(cursor.getCurrentRowValue(table.getColumn("phone")).toString(),30) + addBuffer(row.get("reason").toString(),30)
+                        + addBuffer(row.get("followUp").toString(),30) + addBuffer(row.get("Specialist").toString(),30)
+                        +  addBuffer(row.get("location").toString(),30) + "\n";
+            }
+
+            textArea.append(temp);
+        }
+        catch(IOException e)
+        {
+            System.out.println(e.getMessage());
+        }
 
         scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         centerPanel.add(scrollPane);
@@ -134,18 +157,19 @@ public class ReportWindow extends JFrame {
 
         //adding all panels to frame
         add(northPanel, BorderLayout.NORTH);
-        add(centerPanel, BorderLayout.CENTER);
+        add(centerPanel, BorderLayout.WEST);
         add(southPanel, BorderLayout.SOUTH);
     }
     private void addHeader() {
-        textArea.append(addBuffer("Date", 15));
-        textArea.append(addBuffer("Time", 10));
+        textArea.append(addBuffer("Date/Time", 30));
         textArea.append(addBuffer("FirstName", 30));
         textArea.append(addBuffer("LastName", 30));
-        textArea.append(addBuffer("Email", 25));
-        textArea.append(addBuffer("Phone", 25));
-        textArea.append(addBuffer("Reason", 35));
-        textArea.append(addBuffer("Follow Up?", 10));
+        textArea.append(addBuffer("Email", 30));
+        textArea.append(addBuffer("Phone", 30));
+        textArea.append(addBuffer("Reason", 30));
+        textArea.append(addBuffer("Follow Up?", 30));
+        textArea.append(addBuffer("Specialist", 30));
+        textArea.append(addBuffer("Location", 30));
 
         Scanner scan = new Scanner(textArea.getText());
         String s = scan.nextLine();
@@ -185,17 +209,17 @@ public class ReportWindow extends JFrame {
         }
     }
     private class CloseButtonListener implements ActionListener
-  {
-      public void actionPerformed(ActionEvent e)
-      {
-          if (e.getSource() == closeBtn)
-          {
-              new LoginFrame();
-              setVisible(false);
-              dispose();
-             //System.exit(0);
-          }
-      }
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            if (e.getSource() == closeBtn)
+            {
+                new LoginFrame();
+                setVisible(false);
+                dispose();
+                //System.exit(0);
+            }
+        }
     }
     private class ComboBoxListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
