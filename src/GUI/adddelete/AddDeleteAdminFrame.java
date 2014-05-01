@@ -94,6 +94,7 @@ public class AddDeleteAdminFrame extends JFrame
         
         add(buttonPanel, BorderLayout.EAST);
     }
+    
     private void updateList()
     {
         listModel.clear();
@@ -102,6 +103,7 @@ public class AddDeleteAdminFrame extends JFrame
             listModel.addElement(a.getUsername());
         }
     }
+    
     private AdminAccount getAdmin()
     {
         if (list.getSelectedValue() != null)
