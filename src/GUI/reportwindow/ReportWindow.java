@@ -7,12 +7,14 @@ import GUI.adddeleteuser.AddDeleteUserFrame;
 
 import com.healthmarketscience.jackcess.*;
 import com.healthmarketscience.jackcess.Cursor;
+
 import java.io.IOException;
 import java.util.Collections;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.print.PrinterException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -73,24 +75,25 @@ public class ReportWindow extends JFrame {
         comboPanel = new JPanel();
 
         reasonsComboBox = new JComboBox(reasons);
-        reasonsComboBox.addActionListener(new ReportWindow.ComboBoxListener());
+        reasonsComboBox.addItemListener(new ReportWindow.ItemChangeListener());
+  datesPastYr = new String[365];
+  DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+  Calendar cal = Calendar.getInstance();
 
-        datesPastYr = new String[365];
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        Calendar cal = Calendar.getInstance();
+  for (int i = 0; i < datesPastYr.length; i++) {
+   if (i == 0) {
+    Date day = cal.getTime();
+    datesPastYr[i] = dateFormat.format(day);
+   } else {
+    cal.add(Calendar.DAY_OF_YEAR, -1);
+    Date day = cal.getTime();
+    datesPastYr[i] = dateFormat.format(day);
+   }
+  }
 
-        for (int i = 0; i < datesPastYr.length; i++) {
-            if (i == 0) {
-                Date day = cal.getTime();
-                datesPastYr[i] = dateFormat.format(day);
-            } else {
-                cal.add(Calendar.DAY_OF_YEAR, -1);
-                Date day = cal.getTime();
-                datesPastYr[i] = dateFormat.format(day);
-            }
-        }
+  datesComboBox = new JComboBox(datesPastYr);
+  datesComboBox.addItemListener(new ReportWindow.ItemChangeListener());
 
-        datesComboBox = new JComboBox(datesPastYr);
 
         comboPanel.add(datesComboBox);
         comboPanel.add(reasonsComboBox);
@@ -117,11 +120,12 @@ public class ReportWindow extends JFrame {
                 Cursor cursor = CursorBuilder.createCursor(table);
                 boolean found = cursor.findFirstRow(Collections.singletonMap("email", row.get("email")));
 
-                temp += addBuffer(row.get("visitTime").toString(),30) + addBuffer(cursor.getCurrentRowValue(table.getColumn("fName")).toString(),30)
-                        + addBuffer(cursor.getCurrentRowValue(table.getColumn("lName")).toString(),30) + addBuffer(row.get("email").toString(),30)
-                        + addBuffer(cursor.getCurrentRowValue(table.getColumn("phone")).toString(),30) + addBuffer(row.get("reason").toString(),30)
-                        + addBuffer(row.get("followUp").toString(),30) + addBuffer(row.get("Specialist").toString(),30)
-                        +  addBuffer(row.get("location").toString(),30) + "\n";
+                temp += addBuffer(dateFormat.format(row.get("visitDate")),
+                        15) + addBuffer(cursor.getCurrentRowValue(table.getColumn("fName")).toString(),15)
+                        + addBuffer(cursor.getCurrentRowValue(table.getColumn("lName")).toString(),15) + addBuffer(row.get("email").toString(),30)
+                        + addBuffer(cursor.getCurrentRowValue(table.getColumn("phone")).toString(),15) + addBuffer(row.get("reason").toString(),40)
+                        + addBuffer(row.get("followUp").toString(),15) + addBuffer(row.get("Specialist").toString(),15)
+                        +  addBuffer(row.get("location").toString(),15) + "\n";
             }
 
             textArea.append(temp);
@@ -138,7 +142,7 @@ public class ReportWindow extends JFrame {
         //setting up southPanel
         southPanel = new JPanel();
         
-        addDeleteAdminBtn = new JButton("Add / Delete Administrator");
+        addDeleteAdminBtn = new JButton("Add / Delete Admin");
         addDeleteAdminBtn.addActionListener(new ReportWindow.ButtonListener());
         southPanel.add(addDeleteAdminBtn);
 
@@ -161,15 +165,15 @@ public class ReportWindow extends JFrame {
         add(southPanel, BorderLayout.SOUTH);
     }
     private void addHeader() {
-        textArea.append(addBuffer("Date/Time", 30));
-        textArea.append(addBuffer("FirstName", 30));
-        textArea.append(addBuffer("LastName", 30));
+        textArea.append(addBuffer("Date/Time", 15));
+        textArea.append(addBuffer("FirstName", 15));
+        textArea.append(addBuffer("LastName", 15));
         textArea.append(addBuffer("Email", 30));
-        textArea.append(addBuffer("Phone", 30));
-        textArea.append(addBuffer("Reason", 30));
-        textArea.append(addBuffer("Follow Up?", 30));
-        textArea.append(addBuffer("Specialist", 30));
-        textArea.append(addBuffer("Location", 30));
+        textArea.append(addBuffer("Phone", 15));
+        textArea.append(addBuffer("Reason", 40));
+        textArea.append(addBuffer("Follow Up?", 15));
+        textArea.append(addBuffer("Specialist", 15));
+        textArea.append(addBuffer("Location", 15));
 
         Scanner scan = new Scanner(textArea.getText());
         String s = scan.nextLine();
@@ -221,13 +225,73 @@ public class ReportWindow extends JFrame {
             }
         }
     }
-    private class ComboBoxListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            JComboBox cb = (JComboBox) e.getSource();
+   private class ComboBoxListener implements ActionListener {
+  public void actionPerformed(ActionEvent e) {
+   JComboBox cb = (JComboBox) e.getSource();
 
-            String selection = (String) cb.getSelectedItem();
+   String selection = (String) cb.getSelectedItem();
 
-            StringBuilder stb;
-        }
+   StringBuilder stb;
+  }
+ }
+
+ class ItemChangeListener implements ItemListener {
+  @Override
+  public void itemStateChanged(ItemEvent event) {
+   if (event.getStateChange() == ItemEvent.SELECTED) {
+
+    String string = "";
+    textArea.setText("");
+    addHeader();
+    DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+
+    try {
+     for (Row row : Data.chooseTable("visits")) {
+      Table table = Data.chooseTable("user");
+
+      Cursor cursor = CursorBuilder.createCursor(table);
+
+      boolean found = cursor.findFirstRow(Collections
+        .singletonMap("email", row.get("email")));
+
+      String temp = "";
+      temp += addBuffer(dateFormat.format(row.get("visitDate")),
+        15)
+        + addBuffer(
+          cursor.getCurrentRowValue(
+            table.getColumn("fName"))
+            .toString(), 15)
+        + addBuffer(
+          cursor.getCurrentRowValue(
+            table.getColumn("lName"))
+            .toString(), 15)
+        + addBuffer(row.get("email").toString(), 30)
+        + addBuffer(
+          cursor.getCurrentRowValue(
+            table.getColumn("phone"))
+            .toString(), 15)
+        + addBuffer(row.get("reason").toString(), 40)
+        + addBuffer(row.get("followUp").toString(), 15)
+        + addBuffer(row.get("Specialist").toString(), 15)
+        + "\n";
+
+      if (temp.contains(datesComboBox.getSelectedItem()
+        .toString())
+        && temp.contains(reasonsComboBox.getSelectedItem()
+          .toString()))
+       string += temp;
+
+      textArea.append(string);
+
+     }
+    } catch (IOException e) {
+     // TODO Auto-generated catch block
+     e.printStackTrace();
     }
+   }
+  }
+
+ }
 }
+
+
