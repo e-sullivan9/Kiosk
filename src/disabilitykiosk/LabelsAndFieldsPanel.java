@@ -319,7 +319,7 @@ public class LabelsAndFieldsPanel extends JPanel{
         return this.lastI.getText();
     }
     public String getRole(){
-        return this.roleI.getActionCommand();
+        return this.roleI.getSelectedItem().toString();
     }
     public String getEmail(){
         return this.emailI.getText();
@@ -328,19 +328,19 @@ public class LabelsAndFieldsPanel extends JPanel{
         return this.phoneI.getText();
     }
     public String getReason(){
-        return this.reasonI.getActionCommand();
+        return this.reasonI.getSelectedItem().toString();
     }
     public boolean getFollowUp(){
-        if(this.followUpI.getSelectedItem()== "Yes"){
+        if(this.followUpI.getSelectedItem().toString()== "Yes"){
             return true;
-        }else if(this.followUpI.getSelectedItem()== "No"){
+        }else if(this.followUpI.getSelectedItem().toString()== "No"){
             return false;
         }else{
             return false;
         }
     }
     public String getLocationInput(){
-        return this.locationI.getActionCommand();
+        return this.locationI.getSelectedItem().toString();
     }
     private class SliderListener implements ChangeListener{
         @Override
