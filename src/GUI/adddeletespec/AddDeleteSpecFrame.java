@@ -1,5 +1,6 @@
 package GUI.adddeletespec;
 
+import Backend.Specialist;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +19,8 @@ public class AddDeleteSpecFrame extends JFrame{
     private SubmitorDeleteSpec submitPanel;
     private SpecInfoPanel infoPanel;
     private ListPanel listPanel;
+    
+    Specialist spec;
     
     public AddDeleteSpecFrame(){
         //Window title
@@ -50,7 +53,9 @@ public class AddDeleteSpecFrame extends JFrame{
     //LISTENERS???
     private class submitOrDeleteListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            
+            if (e.getSource() == SubmitorDeleteSpec.addButton){
+                //spec = new Specialist(specInfoPanel.);
+            }
         }
     }
 }

@@ -1,4 +1,7 @@
 package GUI.adddeletespec;
+import Backend.User;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 /**
@@ -6,8 +9,10 @@ import javax.swing.*;
  * @author Spconway 4/26/2014
  */
 public class SubmitorDeleteSpec extends JPanel{
-    private JButton addButton;
+    public static JButton addButton;
     private JButton deleteButton;
+    
+    
     
     public SubmitorDeleteSpec(){
         addButton = new JButton("Add User");
@@ -17,6 +22,9 @@ public class SubmitorDeleteSpec extends JPanel{
     }
     
     
+    
+    
+    
     public final JButton getAddButton(){
         return this.addButton;
     }
@@ -24,4 +32,7 @@ public class SubmitorDeleteSpec extends JPanel{
     public final JButton getDeleteButton(){
         return this.deleteButton;
     }
+    
+    
+    
 }

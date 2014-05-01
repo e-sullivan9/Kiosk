@@ -3,6 +3,7 @@ package GUI.adddeletespec;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,11 +16,12 @@ import javax.swing.JTextField;
 public class SpecInfoPanel extends JPanel{
     
     private final int CHAR_LENGTH = 30;
-    private JLabel first, last, location, email, userName, pass;
+    private Image specImg;
+    private JLabel first, last, location, email, role, phone;
     private Font font = new Font("MONOSPACED", Font.PLAIN, 18);
     //Need to make passT a JPassword field but after that we need to add another
     //JPassword field to confirm password and check that both JPassword fields match
-    private JTextField firstT, lastT, emailT, userNameT, passT;
+    private JTextField firstT, lastT, emailT, roleT, phoneT;
     private JComboBox locationI;
     
     public SpecInfoPanel(){
@@ -85,7 +87,7 @@ public class SpecInfoPanel extends JPanel{
         grid.gridwidth = 2;
         add(locationI, grid);
         
-        //Role
+        //Email
         email = new JLabel("E-Mail");
         email.setFont(font);
         grid.gridx = 0;
@@ -100,35 +102,39 @@ public class SpecInfoPanel extends JPanel{
         grid.gridwidth = 2;
         add(emailT, grid);
         
-        //User name
-        userName = new JLabel("User Name");
-        userName.setFont(font);
+        //Email
+        phone = new JLabel("Phone");
+        phone.setFont(font);
+        grid.gridx = 0;
+        grid.gridy = 3;
+        grid.gridwidth = 1;
+        add(phone, grid);
+        
+        phoneT = new JTextField(CHAR_LENGTH);
+     
+        grid.gridx = 1;
+        grid.gridy = 3;
+        grid.gridwidth = 2;
+        add(phoneT, grid);
+        
+        //role
+        role = new JLabel("Role");
+        role.setFont(font);
         grid.gridx = 0;
         grid.gridy = 4;
         grid.gridwidth = 1;
-        add(userName, grid);
+        add(role, grid);
         
-        userNameT = new JTextField(CHAR_LENGTH);
+        roleT = new JTextField(CHAR_LENGTH);
      
         grid.gridx = 1;
         grid.gridy = 4;
         grid.gridwidth = 2;
-        add(userNameT, grid);
+        add(roleT, grid);
         
-        //Password
-        pass = new JLabel("Password");
-        pass.setFont(font);
-        grid.gridx = 0;
-        grid.gridy = 5;
-        grid.gridwidth = 1;
-        add(pass, grid);
         
-        passT = new JTextField(CHAR_LENGTH);
-     
-        grid.gridx = 1;
-        grid.gridy = 5;
-        grid.gridwidth = 2;
-        add(passT, grid);
+        
+        
     }
     
     //getters
@@ -144,13 +150,7 @@ public class SpecInfoPanel extends JPanel{
         return emailT.getText();
     }
     
-    public String getUserNameText(){
-        return userNameT.getText();
-    }
-    
-    public String getPasswordText(){
-        return passT.getText();
-    }
+
     
     public String getLocationText(){
         return locationI.getActionCommand();
