@@ -3,19 +3,27 @@ package GUI.teacherselectionwindow;
 import Backend.Data;
 import Backend.User;
 import disabilitykiosk.DisabilityKiosk;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
+import javax.swing.Icon;
+import javax.swing.JRadioButtonMenuItem;
 
+/**
+ *
+ * @author Sarah Ben-Kiki
+ */
 public class SpecialistSelectionWindow extends JFrame {
 
     Toolkit tk = Toolkit.getDefaultToolkit();
@@ -23,48 +31,52 @@ public class SpecialistSelectionWindow extends JFrame {
     private final int WINDOW_HEIGHT = ((int) tk.getScreenSize().getHeight());
     private Backend.User user;
     private JButton submit;
-    private JPanel panel;
-    private ArrayList<JRadioButton> radioButtons;
+    private JPanel panel1, panel2;
+    private ArrayList<JRadioButtonMenuItem> radioButtons;
     private ButtonGroup bg = new ButtonGroup();
     private ArrayList<Backend.Specialist> SPECIALISTS;
 
     public SpecialistSelectionWindow(User user) {
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        buildPanel();
-        add(panel);
+        buildPanel1();
+        buildPanel2();
+        setLayout(new BorderLayout());
+        add(panel1, BorderLayout.CENTER);
+        add(panel2, BorderLayout.SOUTH);
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
         this.user = user;
     }
 
-    private void buildPanel() {
-        submit = new JButton("Submit");
-        submit.addActionListener(new SpecialistSelectionWindow.RadioButtonListener());
-        panel = new JPanel();
-
-        // create radio buttons and put them in the button group 
+    private void buildPanel1() {
+        panel1 = new JPanel();
+        panel1.setBorder(BorderFactory.createEmptyBorder(250, 350, 350, 350));
         ArrayList<Backend.Specialist> specialistsList = Backend.SpecialistList.getSpecialList();
-        radioButtons = new ArrayList<JRadioButton>();
+        radioButtons = new ArrayList<JRadioButtonMenuItem>();
         for (int i = 0; i < specialistsList.size(); i++) {
-            /*
-             * need to get the specialistsList.get(i).getPhoto() somehow
-             */
-            String s = specialistsList.get(i).getfName() + " " + specialistsList.get(i).getLname();
-            //put faculty names in an array  
-            JRadioButton rButton = new JRadioButton(s);
+            Icon picture = specialistsList.get(i).getPhoto();
+            String name = specialistsList.get(i).getfName() + " " + specialistsList.get(i).getLname();
+            JRadioButtonMenuItem rButton = new JRadioButtonMenuItem(name, picture, true);
+            rButton.isBorderPainted();
             radioButtons.add(rButton);
         }
-        // put buttons in radio group  
         for (int i = 0; i < radioButtons.size(); i++) {
-            bg.add((JRadioButton) radioButtons.get(i));
+            bg.add((JRadioButtonMenuItem) radioButtons.get(i));
         }
-        // put buttons in panel
         for (int i = 0; i < radioButtons.size(); i++) {
-            panel.add((JRadioButton) radioButtons.get(i));
+            panel1.add((JRadioButtonMenuItem)radioButtons.get(i));
         }
-        panel.add(submit);
+    }
+    
+    private void buildPanel2(){
+        panel2 = new JPanel();
+        panel2.setBorder(BorderFactory.createEmptyBorder(10, 150, 250, 200));
+        submit = new JButton("Submit");
+        submit.addActionListener(new SpecialistSelectionWindow.RadioButtonListener());
+        submit.setPreferredSize(new Dimension(100, 50));
+        panel2.add(submit);
     }
 
     public ArrayList<Backend.Specialist> getSpecialists() {
@@ -72,9 +84,9 @@ public class SpecialistSelectionWindow extends JFrame {
         return SPECIALISTS;
     }
 
-    public JRadioButton getSelection(ButtonGroup group) {
+    public JRadioButtonMenuItem getSelection(ButtonGroup group) {
         for (Enumeration e = group.getElements(); e.hasMoreElements();) {
-            JRadioButton b = (JRadioButton) e.nextElement();
+            JRadioButtonMenuItem b = (JRadioButtonMenuItem) e.nextElement();
             if (b.getModel() == group.getSelection()) {
                 return b;
             }
@@ -83,7 +95,7 @@ public class SpecialistSelectionWindow extends JFrame {
     }
 
     public void submitted() {
-        JRadioButton selected = getSelection(bg);
+        JRadioButtonMenuItem selected = getSelection(bg);
         String facultySelected[] = selected.getText().split(" ");
         user.setSpecialist(facultySelected[0], facultySelected[1]);
         try {
@@ -97,7 +109,6 @@ public class SpecialistSelectionWindow extends JFrame {
         new DisabilityKiosk();
         this.dispose();
     }
-
     private class RadioButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {

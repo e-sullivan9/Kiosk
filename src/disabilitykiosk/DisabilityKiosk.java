@@ -6,7 +6,7 @@
 package disabilitykiosk;
 
 import GUI.loginwindow.*;
-import GUI.teacherselectionwindow.SpecialistSelectionWindow;
+import GUI.teacherselectionwindow.*;
 import Backend.*;
 import com.sun.speech.freetts.VoiceManager;
 import disabilitykiosk.LabelsAndFieldsPanel.*;
@@ -61,12 +61,12 @@ public class DisabilityKiosk extends JFrame
     Admin.deSerialize();
     labelsAndFields = new LabelsAndFieldsPanel();
     submit_Panel = new SubmitPanel();
-    submit_Panel.admin.addActionListener(new AdminButtonListener());
-    submit_Panel.close.addActionListener(new CloseButtonListener());
-    submit_Panel.submit.addActionListener(new SubmitButtonListener());
-    submit_Panel.submitSpeech.addActionListener(new SubmitSpeechButtonListener());
-    submit_Panel.closeSpeech.addActionListener(new CloseSpeechButtonListener());
-    submit_Panel.adminSpeech.addActionListener(new AdminSpeechButtonListener());
+    submit_Panel.admin.addActionListener(new DisabilityKiosk.AdminButtonListener());
+    submit_Panel.close.addActionListener(new DisabilityKiosk.CloseButtonListener());
+    submit_Panel.submit.addActionListener(new DisabilityKiosk.SubmitButtonListener());
+    submit_Panel.submitSpeech.addActionListener(new DisabilityKiosk.SubmitSpeechButtonListener());
+    submit_Panel.closeSpeech.addActionListener(new DisabilityKiosk.CloseSpeechButtonListener());
+    submit_Panel.adminSpeech.addActionListener(new DisabilityKiosk.AdminSpeechButtonListener());
     
     //Add the componets to the content pane
     add(greetings_Panel, BorderLayout.NORTH);
@@ -118,31 +118,13 @@ public class DisabilityKiosk extends JFrame
                       labelsAndFields.getLocationInput(), labelsAndFields.getEmail(),
                       labelsAndFields.getFirst(), labelsAndFields.getLast(),
                       labelsAndFields.getRole(), labelsAndFields.getPhone());
-              
               setVisible(false);
               new GUI.teacherselectionwindow.SpecialistSelectionWindow(user);
               boolean temp;
-              
               if(labelsAndFields.followUpI.getSelectedItem() == "Yes")
               	temp = true;
               else
               	temp = false;
-              
-//              try {
-//              	Data.open();
-//
-//							
-//              	
-//					User.newVisit(Data.chooseTable("visits"),temp, labelsAndFields.reasonI.getSelectedItem().toString(), 
-//							"wellesley" , labelsAndFields.emailI.getText() , labelsAndFields.firstI.getText() , labelsAndFields.lastI.getText() , 
-//							labelsAndFields.roleI.getSelectedItem().toString() ,  
-//							labelsAndFields.phoneI.getText(), "Enter specialist"); //reference speacilist!!
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-          			
-//             new DisabilityKiosk();
           }
       }
   }
@@ -155,7 +137,7 @@ public class DisabilityKiosk extends JFrame
              VoiceManager vm = VoiceManager.getInstance();
 
             com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
-            String text = "Click to submit your answers";
+            String text = "Submit your answers";
             String string[] = text.split("  ");
             voice.allocate();
             for (int i = 0; i < string.length; i++) {
@@ -177,7 +159,7 @@ public class DisabilityKiosk extends JFrame
              VoiceManager vm = VoiceManager.getInstance();
 
             com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
-            String text = "Click to close the window";
+            String text = "Close the window";
             String string[] = text.split("  ");
             voice.allocate();
             for (int i = 0; i < string.length; i++) {
@@ -198,7 +180,7 @@ public class DisabilityKiosk extends JFrame
              VoiceManager vm = VoiceManager.getInstance();
 
             com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
-            String text = "This is for administrators only.";
+            String text = "Admins only.";
             String string[] = text.split("  ");
             voice.allocate();
             for (int i = 0; i < string.length; i++) {
