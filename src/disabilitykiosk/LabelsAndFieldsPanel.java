@@ -6,6 +6,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -126,6 +128,7 @@ public class LabelsAndFieldsPanel extends JPanel{
         //firstI
         firstI = new JTextField(CHAR_LENGTH);
         firstI.setFont(textFieldFont);
+        firstI.addFocusListener(new MyFocusListener());
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 2;
         grid.gridwidth = 4;
@@ -146,6 +149,7 @@ public class LabelsAndFieldsPanel extends JPanel{
         //lastI
         lastI = new JTextField(CHAR_LENGTH);
         lastI.setFont(textFieldFont);
+        lastI.addFocusListener(new MyFocusListener());
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 3;
         grid.gridwidth = 4;
@@ -167,6 +171,7 @@ public class LabelsAndFieldsPanel extends JPanel{
         String[] roles = {"Student", "Teacher", "Parent", "Administrator"};
         roleI = new JComboBox(roles);
         roleI.setFont(textFieldFont);
+        roleI.addFocusListener(new MyFocusListener());
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 4;
         grid.gridwidth = 4;
@@ -187,6 +192,7 @@ public class LabelsAndFieldsPanel extends JPanel{
         //emailI
         emailI = new JTextField(CHAR_LENGTH);
         emailI.setFont(textFieldFont);
+        emailI.addFocusListener(new MyFocusListener());
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 5;
         grid.gridwidth = 4;
@@ -207,6 +213,7 @@ public class LabelsAndFieldsPanel extends JPanel{
         //phoneI
         phoneI = new JTextField(CHAR_LENGTH);
         phoneI.setFont(textFieldFont);
+        phoneI.addFocusListener(new MyFocusListener());
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 6;
         grid.gridwidth = 4;
@@ -231,6 +238,7 @@ public class LabelsAndFieldsPanel extends JPanel{
       "Address Specific Course Assignment or Issue","Alternative Format for Texts and Handouts",
       "Professional Consultation (Faculty, Staff, Administration, Department)","Other"}; 
         reasonI  = new JComboBox(reasons);
+        reasonI.addFocusListener(new MyFocusListener());
         reasonI.setFont(textFieldFont);
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 7;
@@ -253,6 +261,7 @@ public class LabelsAndFieldsPanel extends JPanel{
         String[] returnVisit = {"Yes", "No"};
         followUpI = new JComboBox(returnVisit);
         followUpI.setFont(textFieldFont);
+        followUpI.addFocusListener(new MyFocusListener());
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 8;
         grid.gridwidth = 4;
@@ -274,6 +283,7 @@ public class LabelsAndFieldsPanel extends JPanel{
         String[] locations = {"Framingham", "Wellesley", "Ashland"};
         locationI = new JComboBox(locations);
         locationI.setFont(textFieldFont);
+        locationI.addFocusListener(new MyFocusListener());
         grid.gridx = GridBagConstraints.RELATIVE;
         grid.gridy = 9;
         grid.gridwidth = 4;
@@ -350,7 +360,111 @@ public class LabelsAndFieldsPanel extends JPanel{
             
         }
     }
-    
+        private class MyFocusListener implements FocusListener
+    {
+        public void focusGained(FocusEvent e)
+        {
+            if(e.getSource() == firstI)
+            {
+                VoiceManager vm = VoiceManager.getInstance();
+
+            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+            String text = "Please enter your first name in the text field";
+            String string[] = text.split("  ");
+            voice.allocate();
+            for (int i = 0; i < string.length; i++) {
+                voice.speak(text);
+                }
+       voice.deallocate();
+            }
+            if(e.getSource() == lastI)
+            {
+                VoiceManager vm = VoiceManager.getInstance();
+
+            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+            String text = "Please enter your last name in the text field";
+            String string[] = text.split("  ");
+            voice.allocate();
+            for (int i = 0; i < string.length; i++) {
+                voice.speak(string[i]);
+                }
+       voice.deallocate();
+            }
+             if (e.getSource() == emailI)
+        {
+             VoiceManager vm = VoiceManager.getInstance();
+
+            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+            String text = "Please enter your email address in the text field";
+            String string[] = text.split("  ");
+            voice.allocate();
+            for (int i = 0; i < string.length; i++) {
+                voice.speak(text);
+
+       }
+       voice.deallocate();
+        }
+        if (e.getSource() == phoneI)
+        {
+             VoiceManager vm = VoiceManager.getInstance();
+
+            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+            String text = "Please enter your phone number in the text field";
+            String string[] = text.split("  ");
+            voice.allocate();
+            for (int i = 0; i < string.length; i++) {
+                voice.speak(text);
+
+       }
+       voice.deallocate();
+        }
+        if (e.getSource() == reasonI)
+        {
+             VoiceManager vm = VoiceManager.getInstance();
+
+            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+            String text = "Please enter your reason for being here in the drop down list";
+            String string[] = text.split("  ");
+            voice.allocate();
+            for (int i = 0; i < string.length; i++) {
+                voice.speak(text);
+
+       }
+       voice.deallocate();
+        }
+         if (e.getSource() == followUpI)
+        {
+             VoiceManager vm = VoiceManager.getInstance();
+
+            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+            String text = "Please enter if this is a follow up visit. Yes or no";
+            String string[] = text.split("  ");
+            voice.allocate();
+            for (int i = 0; i < string.length; i++) {
+                voice.speak(text);
+
+       }
+       voice.deallocate();
+        }
+         if (e.getSource() == roleI)
+        {
+             VoiceManager vm = VoiceManager.getInstance();
+
+            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+            String text = "Please enter your role with the school in the drop down list";
+            String string[] = text.split("  ");
+            voice.allocate();
+            for (int i = 0; i < string.length; i++) {
+                voice.speak(text);
+
+       }
+       voice.deallocate();
+        }
+        }
+        
+        public void focusLost(FocusEvent e)
+        {}
+    }
     private class firstButtonListener implements ActionListener
 {
     public void actionPerformed(ActionEvent e)
