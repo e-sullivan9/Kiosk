@@ -15,8 +15,8 @@ import javax.swing.JList;
 public class AddDeleteSpecFrame extends JFrame{
     private final int WINDOW_WIDTH = 800;
     private final int WINDOW_HEIGHT = 500;
-    private SubmitorDelete submitPanel;
-    private InfoPanel infoPanel;
+    private SubmitorDeleteSpec submitPanel;
+    private SpecInfoPanel infoPanel;
     private ListPanel listPanel;
     
     public AddDeleteSpecFrame(){
@@ -35,8 +35,8 @@ public class AddDeleteSpecFrame extends JFrame{
     }
     
     private void buildMainFrame(){
-        submitPanel = new SubmitorDelete();
-        infoPanel = new InfoPanel();
+        submitPanel = new SubmitorDeleteSpec();
+        infoPanel = new SpecInfoPanel();
         listPanel = new ListPanel();
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         

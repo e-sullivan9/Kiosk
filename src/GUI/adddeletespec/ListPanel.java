@@ -1,6 +1,8 @@
 package GUI.adddeletespec;
 
+import Backend.Specialist;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,6 +14,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 
 /**
  *
@@ -25,8 +28,14 @@ public class ListPanel extends JPanel{
     //Need to make passT a JPassword field but after that we need to add another
     //JPassword field to confirm password and check that both JPassword fields match
     
-    private ArrayList specs = new ArrayList(Backend.SpecialistList.getSpecialList());
+    private ArrayList<Specialist> specs = new ArrayList<Specialist>(Backend.SpecialistList.getSpecialList());
+    
     private JList list;
+    private JList nList;
+    private String[] namesList;
+    
+    Specialist[] arr = new Specialist[specs.size()];
+    
     private DefaultListModel dlm;
     private JScrollPane scroll;
     
@@ -39,12 +48,20 @@ public class ListPanel extends JPanel{
     private void buildPanel(){
         
        specLabel = new JLabel("Specialists");
-        
-       //dlm = new DefaultListModel();
-
+       ArrayList<String> namesList = new ArrayList<String>();
+       
+       for(int i = 0; i < specs.size(); i++){
+           namesList.add(specs.get(i).getFullName());
+       }
+       
        list = new JList(specs.toArray());
-       scroll = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+       nList = new JList(namesList.toArray());
+       
+       
+       scroll = new JScrollPane(nList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+       
+       scroll.setPreferredSize(new Dimension(300, 490));
        
        add(specLabel, BorderLayout.NORTH);
        add(scroll, BorderLayout.CENTER);

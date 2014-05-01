@@ -1,5 +1,6 @@
 package GUI.reportwindow;
 import Backend.*;
+import GUI.adddeletespec.AddDeleteSpecFrame;
 import GUI.loginwindow.LoginFrame;
 import GUI.adddeleteuser.AddDeleteUserFrame;
 
@@ -35,7 +36,8 @@ public class ReportWindow extends JFrame {
     private JScrollPane scrollPane;
 
     private JButton printFileBtn;
-    private JButton addDeleteBtn;
+    //private JButton addDeleteBtn;
+    private JButton addDeleteSpecBtn;
     private JButton closeBtn;
 
     private final String[] reasons = {"New, Prospective Student/Group","Disclose and Document Disability (In-take)","Placement Testing with Accommodation",
@@ -111,9 +113,9 @@ public class ReportWindow extends JFrame {
         //setting up southPanel
         southPanel = new JPanel();
 
-        addDeleteBtn = new JButton("Add / Delete Users");
-        addDeleteBtn.addActionListener(new ReportWindow.ButtonListener());
-        southPanel.add(addDeleteBtn);
+        addDeleteSpecBtn = new JButton("Add / Delete Specialist");
+        addDeleteSpecBtn.addActionListener(new ReportWindow.ButtonListener());
+        southPanel.add(addDeleteSpecBtn);
 
         printFileBtn = new JButton("Print File");
         printFileBtn.addActionListener(new ReportWindow.ButtonListener());
@@ -167,9 +169,9 @@ public class ReportWindow extends JFrame {
                 } catch(PrinterException exception) {
                     JOptionPane.showMessageDialog(null, exception);
                 }
-            } else if (e.getSource() == addDeleteBtn) {
-                AddDeleteUserFrame addDeleteUser = new AddDeleteUserFrame();
-                addDeleteUser.setVisible(true);
+            } else if (e.getSource() == addDeleteSpecBtn) {
+                AddDeleteSpecFrame addDeleteSpec = new AddDeleteSpecFrame();
+                addDeleteSpec.setVisible(true);
             }
         }
     }

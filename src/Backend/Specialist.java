@@ -20,15 +20,15 @@ public class Specialist implements Serializable
     ImageIcon photo;
     String email;
     String fName; 
-    String lname;
+    String lName;
     String role;
     String phone;
 
     public Specialist(ImageIcon photo, String email, String fName, String lname, String role, String phone) {
-        this.photo=photo;
-        this.email =email;
-        this.fName=fName;
-        this.lname=lname;
+        this.photo = photo;
+        this.email = email;
+        this.fName = fName;
+        this.lName = lname;
         
     }
      public ImageIcon getPhoto() {
@@ -56,11 +56,11 @@ public class Specialist implements Serializable
     }
 
     public String getLname() {
-        return lname;
+        return lName;
     }
 
     public void setLname(String lname) {
-        this.lname = lname;
+        this.lName = lname;
     }
 
     public String getRole() {
@@ -79,5 +79,9 @@ public class Specialist implements Serializable
         this.phone = phone;
     }
     
+    
+    public String getFullName(){
+        return fName + " " + lName;
+    }
     
 }

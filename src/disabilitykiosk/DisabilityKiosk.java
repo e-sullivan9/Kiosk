@@ -118,9 +118,11 @@ public class DisabilityKiosk extends JFrame
                       labelsAndFields.getLocationInput(), labelsAndFields.getEmail(),
                       labelsAndFields.getFirst(), labelsAndFields.getLast(),
                       labelsAndFields.getRole(), labelsAndFields.getPhone());
+              
               setVisible(false);
               new GUI.teacherselectionwindow.SpecialistSelectionWindow(user);
               boolean temp;
+              
               if(labelsAndFields.followUpI.getSelectedItem() == "Yes")
               	temp = true;
               else

@@ -12,7 +12,7 @@ import javax.swing.JTextField;
  *
  * @author Spconway 4/26/2014
  */
-public class InfoPanel extends JPanel{
+public class SpecInfoPanel extends JPanel{
     
     private final int CHAR_LENGTH = 30;
     private JLabel first, last, location, email, userName, pass;
@@ -22,7 +22,7 @@ public class InfoPanel extends JPanel{
     private JTextField firstT, lastT, emailT, userNameT, passT;
     private JComboBox locationI;
     
-    public InfoPanel(){
+    public SpecInfoPanel(){
         super(new GridBagLayout());
         buildPanel();
         setVisible(true);
@@ -45,6 +45,7 @@ public class InfoPanel extends JPanel{
         grid.gridwidth = 1;
         add(first, grid);
         
+        //input field for first name
         firstT = new JTextField(CHAR_LENGTH);
      
         grid.gridx = 1;
@@ -60,6 +61,7 @@ public class InfoPanel extends JPanel{
         grid.gridwidth = 1;
         add(last, grid);
         
+        //input field for first name
         lastT = new JTextField(CHAR_LENGTH);
      
         grid.gridx = 1;
