@@ -76,7 +76,9 @@ public class LabelsAndFieldsPanel extends JPanel{
      */
     private void buildPanel(){
         //Initializing thread for date and time
-        Thread t = new Thread(new DateAndTime());
+        DateAndTime r = new DateAndTime();
+        
+        Thread t = new Thread(r);
         t.start();
         GridBagConstraints grid = new GridBagConstraints();
         grid.fill = GridBagConstraints.HORIZONTAL;
@@ -617,27 +619,39 @@ public class LabelsAndFieldsPanel extends JPanel{
           * Setting up thread for time and date
           */
          private class DateAndTime implements Runnable{
-
+             private static final int DELAY = 5000;//Sleep every 5 seconds
         @Override
         public void run() {
-            try{
+            /*
+             * Update on 5/1/2014: had to add JLabel.setText method to a new Runnable
+             * and set that inside the awt event queue so the event dispatch thread
+             * doesn't crash like it was....I don't even know if I just said that right.
+             */
                 while(true){
-                    Date todaysDate = new Date();
-                    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-                    timeI.setText(timeFormat.format(todaysDate));
-                    timeI.setFont(textFieldFont);
-                    dateI.updateUI();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyy/MM/dd");
-                    dateI.setText(dateFormat.format(todaysDate));
-                    dateI.setFont(textFieldFont);
-                    timeI.updateUI();
-                    Thread.sleep(DELAY);
+                    try{
+                        java.awt.EventQueue.invokeLater(new Runnable(){
+                            public void run(){
+                                Date todaysDate = new Date();
+                            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                            timeI.setText(timeFormat.format(todaysDate));
+                            timeI.setFont(textFieldFont);
+                            timeI.updateUI();
+
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyy/MM/dd");
+                            dateI.setText(dateFormat.format(todaysDate));
+                            dateI.setFont(textFieldFont);
+                            dateI.updateUI();
+                            }
+                        });
+
+                        Thread.sleep(DELAY);
+                    }catch (InterruptedException exception){
                 }
-            }catch (InterruptedException exception){
-                
-            }
+                }
         }
-        private static final int DELAY = 5000;//Sleep every 5 seconds
+            
+        
              
          }
+         
 }
