@@ -167,7 +167,8 @@ public class SpecInfoPanel extends JPanel{
         lastT.setText("");
         emailT.setText("");
         phoneT.setText("");
-        roleT.setText("");;
+        roleT.setText("");
+        photoT.setText("");
     }
     
     public String getEmailText(){
@@ -180,7 +181,7 @@ public class SpecInfoPanel extends JPanel{
         return phoneT.getText();
     }
     public String getPhoto(){
-        return photo.getText();
+        return photoT.getText();
     }
     public void setEditUser(Specialist a){
         firstT.setText(a.getfName());

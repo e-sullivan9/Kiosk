@@ -30,9 +30,12 @@ public class SpecialistList{
     public SpecialistList(){
     }
     
-    public void addSpecialist(ImageIcon photo, String email, String fName, String lname, String role, String phone)
+    public void addSpecialist(String photo, String email, String fName, String lname, String role, String phone)
     {
     	specs.add(new Specialist(photo,email,fName,lname, role, phone));
+    }
+    public void addSpecialist(Specialist s){
+        specs.add(s);
     }
     
     public void deleteAdmin(String username)

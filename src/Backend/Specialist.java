@@ -17,14 +17,14 @@ import javax.swing.ImageIcon;
 public class Specialist implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    ImageIcon photo;
+    String photo;
     String email;
     String fName; 
     String lName;
     String role;
     String phone;
 
-    public Specialist(ImageIcon photo, String email, String fName, String lname, String role, String phone) {
+    public Specialist(String photo, String email, String fName, String lname, String role, String phone) {
         this.photo = photo;
         this.email = email;
         this.fName = fName;
@@ -42,11 +42,12 @@ public class Specialist implements Serializable
         
     }
      public ImageIcon getPhoto() {
-        return photo;
+       //java.net.URL imgURL = Specialist.class.getResource(photo);
+        return new ImageIcon(photo,photo);
     }
 
     public void setPhoto(ImageIcon photo) {
-        this.photo = photo;
+        this.photo = photo.toString();
     }
 
     public String getEmail() {

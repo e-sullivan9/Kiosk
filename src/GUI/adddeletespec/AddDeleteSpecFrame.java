@@ -150,9 +150,17 @@ public class AddDeleteSpecFrame extends JFrame{
                     }
                     else
                             {
-                                SpecialistList.specs.add(new Specialist(new ImageIcon(infoPanel.getPhoto()), infoPanel.getEmailText(),infoPanel.getFirstName(),infoPanel.getLastName(),infoPanel.getRoleText(),infoPanel.getPhoneText()));
+                                ImageIcon i = new ImageIcon(infoPanel.getPhoto());
+                                if(i.getIconHeight()>250||i.getIconWidth()>250){
+                                    
+                                      JOptionPane.showMessageDialog(null, "Image too Large.", "Image Error", JOptionPane.ERROR_MESSAGE);
+
+                                }
+                                else{
+                                SpecialistList.specs.add(new Specialist(infoPanel.getPhoto(), infoPanel.getEmailText(),infoPanel.getFirstName(),infoPanel.getLastName(),infoPanel.getRoleText(),infoPanel.getPhoneText()));
                                 updateList();
                                 infoPanel.clear();
+                                }
                     }
                    }
             }
@@ -165,9 +173,18 @@ public class AddDeleteSpecFrame extends JFrame{
                      SpecialistList.specs.set(SpecialistList.specs.indexOf(getSpecialist()),new Specialist(infoPanel.getEmailText(),infoPanel.getFirstName(),infoPanel.getLastName(),infoPanel.getRoleText(),infoPanel.getPhoneText()));
                      updateList();
                      infoPanel.clear();
-                    }else
-                       SpecialistList.specs.set(SpecialistList.specs.indexOf(getSpecialist()),new Specialist(new ImageIcon(infoPanel.getPhoto()),infoPanel.getEmailText(),infoPanel.getFirstName(),infoPanel.getLastName(),infoPanel.getRoleText(),infoPanel.getPhoneText()));
+                    }
+                    else{
+                        ImageIcon j = new ImageIcon(infoPanel.getPhoto());
+                                if(j.getIconHeight()>250||j.getIconWidth()>250){
+                                    
+                                      JOptionPane.showMessageDialog(null, "Image too Large.", "Image Error", JOptionPane.ERROR_MESSAGE);
 
+                                }
+                                else{
+                                    SpecialistList.specs.set(SpecialistList.specs.indexOf(getSpecialist()),new Specialist(infoPanel.getPhoto(),infoPanel.getEmailText(),infoPanel.getFirstName(),infoPanel.getLastName(),infoPanel.getRoleText(),infoPanel.getPhoneText()));
+                                }
+                    }
                 }
             }
         }

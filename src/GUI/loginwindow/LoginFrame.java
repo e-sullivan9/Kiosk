@@ -64,7 +64,7 @@ public class LoginFrame extends JFrame {
 				 */
 				// if(bool) will replace line 61
 
-				boolean temp = true;
+				boolean temp = false;
 				for (AdminAccount add : Admin.admins) {
 					if ((add.getUsername().equals(sUserName))
 							&& (add.getPassword().equals(sPassWord))) {
