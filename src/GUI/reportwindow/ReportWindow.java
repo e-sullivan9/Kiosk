@@ -164,7 +164,7 @@ public class ReportWindow extends JFrame {
 
         //adding all panels to frame
         add(northPanel, BorderLayout.NORTH);
-        add(centerPanel, BorderLayout.NORTH);
+        add(centerPanel, BorderLayout.CENTER);
         add(southPanel, BorderLayout.SOUTH);
     }
     private void addHeader() {
