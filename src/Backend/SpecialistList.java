@@ -25,7 +25,7 @@ import javax.swing.ImageIcon;
  */
 public class SpecialistList{
     
-    private static ArrayList<Specialist> specs = new ArrayList<>();
+    public static ArrayList<Specialist> specs = new ArrayList<Specialist>();
     
     public SpecialistList(){
     }

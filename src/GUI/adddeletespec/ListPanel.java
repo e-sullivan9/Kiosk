@@ -4,17 +4,13 @@ import Backend.Specialist;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -32,7 +28,6 @@ public class ListPanel extends JPanel{
     
     private JList list;
     private JList nList;
-    private String[] namesList;
     
     
     private DefaultListModel dlm;
@@ -49,19 +44,19 @@ public class ListPanel extends JPanel{
        specLabel = new JLabel("Specialists");
        
        //to hold names for the Scroll Pane
-       ArrayList<String> namesList = new ArrayList<String>();
+       //ArrayList<String> namesList = new ArrayList<String>();
        
        //get the names of the Specialist objects
-       for(int i = 0; i < specs.size(); i++){
-           namesList.add(specs.get(i).getFullName());
-       }
-       
+       dlm = new DefaultListModel<>();
+       updateList();
        //one of these lists is used to display the names, they have the same index
-       list = new JList(specs.toArray());
-       nList = new JList(namesList.toArray());
-       
+       list = new JList(dlm);
+       list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+       list.setLayoutOrientation(JList.VERTICAL);
+        
+       //nList = new JList(namesList.toArray());
        //add the scroll pane
-       scroll = new JScrollPane(nList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+       scroll = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
        
        scroll.setPreferredSize(new Dimension(300, 490));
@@ -69,6 +64,14 @@ public class ListPanel extends JPanel{
        add(specLabel, BorderLayout.NORTH);
        add(scroll, BorderLayout.CENTER);
        setVisible(true);
+    }
+    public void updateList()
+    {
+        dlm.clear();
+        for (Specialist a : Backend.SpecialistList.specs)
+        {
+            dlm.addElement(a.getFullName());
+        }
     }
     
     

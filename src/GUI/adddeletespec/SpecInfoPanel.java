@@ -1,13 +1,19 @@
 package GUI.adddeletespec;
 
+import Backend.Specialist;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import javax.swing.JComboBox;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -17,12 +23,13 @@ public class SpecInfoPanel extends JPanel{
     
     private final int CHAR_LENGTH = 30;
     private Image specImg;
-    private JLabel first, last, location, email, role, phone;
+    private JLabel first, last, photo, email, role, phone;
     private Font font = new Font("MONOSPACED", Font.PLAIN, 18);
     //Need to make passT a JPassword field but after that we need to add another
     //JPassword field to confirm password and check that both JPassword fields match
-    private JTextField firstT, lastT, emailT, roleT, phoneT;
-    private JComboBox locationI;
+    private JTextField firstT, lastT, emailT, photoT, roleT, phoneT;
+    private JButton fileselector;
+   // private JComboBox locationI;
     
     public SpecInfoPanel(){
         super(new GridBagLayout());
@@ -72,20 +79,27 @@ public class SpecInfoPanel extends JPanel{
         add(lastT, grid);
         
         //Location
-        location = new JLabel("Location");
-        location.setFont(font);
+        photo = new JLabel("Photo");
+        photo.setFont(font);
         grid.gridx = 0;
         grid.gridy = 2;
         grid.gridwidth = 1;
-        add(location, grid);
+        add(photo, grid);
         
-        String[] locations = {"Framing", "Wellesley", "Ashland"};
-        locationI = new JComboBox(locations);
+        photoT = new JTextField(CHAR_LENGTH);
      
         grid.gridx = 1;
         grid.gridy = 2;
-        grid.gridwidth = 2;
-        add(locationI, grid);
+        grid.gridwidth = 1;
+        add(photoT, grid);
+        
+        fileselector = new JButton("...");
+        
+        grid.gridx = 3;
+        grid.gridy = 2;
+        grid.gridwidth = 1;
+        add(fileselector,grid);
+        fileselector.addActionListener(new Listener());
         
         //Email
         email = new JLabel("E-Mail");
@@ -106,14 +120,14 @@ public class SpecInfoPanel extends JPanel{
         phone = new JLabel("Phone");
         phone.setFont(font);
         grid.gridx = 0;
-        grid.gridy = 3;
+        grid.gridy = 5;
         grid.gridwidth = 1;
         add(phone, grid);
         
         phoneT = new JTextField(CHAR_LENGTH);
      
         grid.gridx = 1;
-        grid.gridy = 3;
+        grid.gridy = 5;
         grid.gridwidth = 2;
         add(phoneT, grid);
         
@@ -145,14 +159,48 @@ public class SpecInfoPanel extends JPanel{
     public String getLastName(){
         return lastT.getText();
     }
+    public String getFullName(){
+        return firstT.getText()+" "+lastT.getText();
+    }
+    public void clear(){
+        firstT.setText("");
+        lastT.setText("");
+        emailT.setText("");
+        phoneT.setText("");
+        roleT.setText("");;
+    }
     
     public String getEmailText(){
         return emailT.getText();
     }
-    
-
-    
-    public String getLocationText(){
-        return locationI.getActionCommand();
+    public String getRoleText(){
+        return roleT.getText();
+    }
+    public String getPhoneText(){
+        return phoneT.getText();
+    }
+    public String getPhoto(){
+        return photo.getText();
+    }
+    public void setEditUser(Specialist a){
+        firstT.setText(a.getfName());
+        lastT.setText(a.getLname());
+        emailT.setText(a.getEmail());
+        phoneT.setText(a.getPhone());
+        roleT.setText(a.getRole());
+        photoT.setText(a.getPhoto().getDescription());
+    }
+    private class Listener implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            if(e.getSource() == fileselector){
+                JFileChooser fc = new JFileChooser();
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("Img File", "jpg", "png"); // create a filter
+                fc.setFileFilter(filter);
+                int f = fc.showDialog(SpecInfoPanel.this,"");
+                if(f == JFileChooser.APPROVE_OPTION){
+                    photoT.setText(fc.getSelectedFile().getAbsolutePath());
+                }
+            }
+        }
     }
 }

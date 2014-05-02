@@ -29,6 +29,16 @@ public class Specialist implements Serializable
         this.email = email;
         this.fName = fName;
         this.lName = lname;
+        this.role = role;
+        this.phone =  phone;
+    }
+    public Specialist(String email, String fName, String lname, String role, String phone) {
+        this.photo = null;
+        this.email = email;
+        this.fName = fName;
+        this.lName = lname;
+        this.role = role;
+        this.phone =  phone;
         
     }
      public ImageIcon getPhoto() {
