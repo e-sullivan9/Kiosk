@@ -32,6 +32,7 @@ public class StartupManger {
         }
         SpecialistList s = new SpecialistList();
         Admin admin = new Admin();
+        Admin.serialize();
         Admin.deSerialize();
         SpecialistList.deSerialize();
         if(Admin.admins.isEmpty()){
@@ -46,7 +47,7 @@ public class StartupManger {
                 adminInput.add(new JLabel("Password: "));
                 adminInput.add(pwInput);
                 submitted = JOptionPane.showConfirmDialog(null, adminInput, "Please enter new Admin Username & Password.", JOptionPane.OK_CANCEL_OPTION);
-                if (submitted == JOptionPane.OK_OPTION) {
+                if (submitted == JOptionPane.OK_OPTION&&!unInput.getText().equals("")&&!pwInput.getText().equals("")) {
                     Admin.admins.add(new AdminAccount(unInput.getText(), pwInput.getText()));
                     System.out.println(Admin.admins.toString());//test line
                 }
