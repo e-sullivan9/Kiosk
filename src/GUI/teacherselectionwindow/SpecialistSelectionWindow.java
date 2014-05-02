@@ -31,10 +31,11 @@ public class SpecialistSelectionWindow extends JFrame {
     private final int WINDOW_HEIGHT = ((int) tk.getScreenSize().getHeight());
     private Backend.User user;
     private JButton submit;
-    private JPanel panel1, panel2;
+    private JPanel panel1, panel2; //panel3, panel4;
     private ArrayList<JRadioButtonMenuItem> radioButtons;
     private ButtonGroup bg = new ButtonGroup();
     private ArrayList<Backend.Specialist> SPECIALISTS;
+    //private Border blackline = BorderFactory.createLineBorder(Color.black);
 
     public SpecialistSelectionWindow(User user) {
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -52,7 +53,7 @@ public class SpecialistSelectionWindow extends JFrame {
 
     private void buildPanel1() {
         panel1 = new JPanel();
-        panel1.setBorder(BorderFactory.createEmptyBorder(250, 350, 350, 350));
+        panel1.setBorder(BorderFactory.createEmptyBorder(100, 300,60,300));
         ArrayList<Backend.Specialist> specialistsList = Backend.SpecialistList.getSpecialList();
         radioButtons = new ArrayList<JRadioButtonMenuItem>();
         for (int i = 0; i < specialistsList.size(); i++) {
@@ -72,7 +73,8 @@ public class SpecialistSelectionWindow extends JFrame {
     
     private void buildPanel2(){
         panel2 = new JPanel();
-        panel2.setBorder(BorderFactory.createEmptyBorder(10, 150, 250, 200));
+        panel2.setBorder(BorderFactory.createEmptyBorder(10, 100, 150, 100));
+
         submit = new JButton("Submit");
         submit.addActionListener(new SpecialistSelectionWindow.RadioButtonListener());
         submit.setPreferredSize(new Dimension(100, 50));
