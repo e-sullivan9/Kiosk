@@ -136,12 +136,29 @@ public class AddDeleteAdminFrame extends JFrame
                 adminInput.add(new JLabel("Password: "));
                 adminInput.add(pwInput);
                 int submitted = JOptionPane.showConfirmDialog(null, adminInput, "Please enter a username and password for the new account.", JOptionPane.OK_CANCEL_OPTION);
+                
                 if (submitted == JOptionPane.OK_OPTION)
                 {
-                    Admin.admins.add(new AdminAccount(unInput.getText(), pwInput.getText()));
-                    updateList();
+                    boolean exists = false;
+                    
+                    for (AdminAccount a : Admin.admins)
+                    {
+                        if (a.getUsername().equals(unInput.getText()))
+                        {
+                            exists = true;
+                        }
+                    }
+                    if (exists)
+                    {
+                        JOptionPane.showMessageDialog(null, "An account with this username already exits.", "Existing Account", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else
+                    {
+                        Admin.admins.add(new AdminAccount(unInput.getText(), pwInput.getText()));
+                        updateList();
+                    }
                 }
-            } 
+            }
             else if (e.getSource() == editBtn)
             {
                 if (getAdmin() != null)
