@@ -32,7 +32,6 @@ public class StartupManger {
         }
         SpecialistList s = new SpecialistList();
         Admin admin = new Admin();
-        Admin.serialize();
         Admin.deSerialize();
         SpecialistList.deSerialize();
         if(Admin.admins.isEmpty()){
