@@ -76,23 +76,23 @@ public class ReportWindow extends JFrame {
 
         reasonsComboBox = new JComboBox(reasons);
         reasonsComboBox.addItemListener(new ReportWindow.ItemChangeListener());
-  datesPastYr = new String[365];
-  DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-  Calendar cal = Calendar.getInstance();
+        datesPastYr = new String[365];
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        Calendar cal = Calendar.getInstance();
 
-  for (int i = 0; i < datesPastYr.length; i++) {
-   if (i == 0) {
-    Date day = cal.getTime();
-    datesPastYr[i] = dateFormat.format(day);
-   } else {
-    cal.add(Calendar.DAY_OF_YEAR, -1);
-    Date day = cal.getTime();
-    datesPastYr[i] = dateFormat.format(day);
-   }
-  }
+        for (int i = 0; i < datesPastYr.length; i++) {
+            if (i == 0) {
+                Date day = cal.getTime();
+                datesPastYr[i] = dateFormat.format(day);
+            } else {
+                cal.add(Calendar.DAY_OF_YEAR, -1);
+                Date day = cal.getTime();
+                datesPastYr[i] = dateFormat.format(day);
+            }
+        }
 
-  datesComboBox = new JComboBox(datesPastYr);
-  datesComboBox.addItemListener(new ReportWindow.ItemChangeListener());
+        datesComboBox = new JComboBox(datesPastYr);
+        datesComboBox.addItemListener(new ReportWindow.ItemChangeListener());
 
 
         comboPanel.add(datesComboBox);
@@ -124,7 +124,7 @@ public class ReportWindow extends JFrame {
                         15) + addBuffer(cursor.getCurrentRowValue(table.getColumn("fName")).toString(),15)
                         + addBuffer(cursor.getCurrentRowValue(table.getColumn("lName")).toString(),15) + addBuffer(row.get("email").toString(),30)
                         + addBuffer(cursor.getCurrentRowValue(table.getColumn("phone")).toString(),15) + addBuffer(row.get("reason").toString(),40)
-                        + addBuffer(row.get("followUp").toString(),15) + addBuffer(row.get("Specialist").toString(),15)
+                        + addBuffer(followUpSwitcher(row.get("followUp").toString()),15) + addBuffer(row.get("Specialist").toString(),15)
                         +  addBuffer(row.get("location").toString(),15) + "\n";
             }
 
@@ -141,7 +141,7 @@ public class ReportWindow extends JFrame {
 
         //setting up southPanel
         southPanel = new JPanel();
-        
+
         addDeleteAdminBtn = new JButton("Add / Delete Admin");
         addDeleteAdminBtn.addActionListener(new ReportWindow.ButtonListener());
         southPanel.add(addDeleteAdminBtn);
@@ -192,6 +192,16 @@ public class ReportWindow extends JFrame {
 
         return temp;
     }
+
+    private static String followUpSwitcher(String s) {
+
+        if (s.equalsIgnoreCase("true")) {
+            return "Yes";
+        }
+        else
+            return "No";
+    }
+
     private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == printFileBtn) {
@@ -212,6 +222,7 @@ public class ReportWindow extends JFrame {
             }
         }
     }
+
     private class CloseButtonListener implements ActionListener
     {
         public void actionPerformed(ActionEvent e)
@@ -225,74 +236,75 @@ public class ReportWindow extends JFrame {
             }
         }
     }
-   private class ComboBoxListener implements ActionListener {
-  public void actionPerformed(ActionEvent e) {
-   JComboBox cb = (JComboBox) e.getSource();
 
-   String selection = (String) cb.getSelectedItem();
+    private class ComboBoxListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            JComboBox cb = (JComboBox) e.getSource();
 
-   StringBuilder stb;
-  }
- }
+            String selection = (String) cb.getSelectedItem();
 
- class ItemChangeListener implements ItemListener {
-  @Override
-  public void itemStateChanged(ItemEvent event) {
-   if (event.getStateChange() == ItemEvent.SELECTED) {
-
-    String string = "";
-    textArea.setText("");
-    addHeader();
-    DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-
-    try {
-     for (Row row : Data.chooseTable("visits")) {
-      Table table = Data.chooseTable("user");
-
-      Cursor cursor = CursorBuilder.createCursor(table);
-
-      boolean found = cursor.findFirstRow(Collections
-        .singletonMap("email", row.get("email")));
-
-      String temp = "";
-      temp += addBuffer(dateFormat.format(row.get("visitDate")),
-        15)
-        + addBuffer(
-          cursor.getCurrentRowValue(
-            table.getColumn("fName"))
-            .toString(), 15)
-        + addBuffer(
-          cursor.getCurrentRowValue(
-            table.getColumn("lName"))
-            .toString(), 15)
-        + addBuffer(row.get("email").toString(), 30)
-        + addBuffer(
-          cursor.getCurrentRowValue(
-            table.getColumn("phone"))
-            .toString(), 15)
-        + addBuffer(row.get("reason").toString(), 40)
-        + addBuffer(row.get("followUp").toString(), 15)
-        + addBuffer(row.get("Specialist").toString(), 15)
-        + addBuffer(row.get("location").toString(), 15)
-        + "\n";
-
-      if (temp.contains(datesComboBox.getSelectedItem()
-        .toString())
-        && temp.contains(reasonsComboBox.getSelectedItem()
-          .toString()))
-       string += temp;
-
-      textArea.append(string);
-
-     }
-    } catch (IOException e) {
-     // TODO Auto-generated catch block
-     e.printStackTrace();
+            StringBuilder stb;
+        }
     }
-   }
-  }
 
- }
+    class ItemChangeListener implements ItemListener {
+        @Override
+        public void itemStateChanged(ItemEvent event) {
+            if (event.getStateChange() == ItemEvent.SELECTED) {
+
+                String string = "";
+                textArea.setText("");
+                addHeader();
+                DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+
+                try {
+                    for (Row row : Data.chooseTable("visits")) {
+                        Table table = Data.chooseTable("user");
+
+                        Cursor cursor = CursorBuilder.createCursor(table);
+
+                        boolean found = cursor.findFirstRow(Collections
+                                .singletonMap("email", row.get("email")));
+
+                        String temp = "";
+                        temp += addBuffer(dateFormat.format(row.get("visitDate")),
+                                15)
+                                + addBuffer(
+                                cursor.getCurrentRowValue(
+                                        table.getColumn("fName"))
+                                        .toString(), 15)
+                                + addBuffer(
+                                cursor.getCurrentRowValue(
+                                        table.getColumn("lName"))
+                                        .toString(), 15)
+                                + addBuffer(row.get("email").toString(), 30)
+                                + addBuffer(
+                                cursor.getCurrentRowValue(
+                                        table.getColumn("phone"))
+                                        .toString(), 15)
+                                + addBuffer(row.get("reason").toString(), 40)
+                                + addBuffer(row.get("followUp").toString(), 15)
+                                + addBuffer(row.get("Specialist").toString(), 15)
+                                + addBuffer(row.get("location").toString(), 15)
+                                + "\n";
+
+                        if (temp.contains(datesComboBox.getSelectedItem()
+                                .toString())
+                                && temp.contains(reasonsComboBox.getSelectedItem()
+                                .toString()))
+                            string += temp;
+
+                        textArea.append(string);
+
+                    }
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
 }
 
 
