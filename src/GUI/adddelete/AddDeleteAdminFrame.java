@@ -5,13 +5,8 @@ import Backend.AdminAccount;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Collections;
 import javax.swing.Box;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -112,7 +107,7 @@ public class AddDeleteAdminFrame extends JFrame
             
             for (AdminAccount a : Admin.admins)
             {
-                if (a.getUsername().equals(target))
+                if (target.equals(a.getUsername()))
                 {
                     return a;
                 }
@@ -123,6 +118,7 @@ public class AddDeleteAdminFrame extends JFrame
     
     private class ButtonListener implements ActionListener
     {
+        @Override
         public void actionPerformed(ActionEvent e)
         {
             if (e.getSource() == addBtn)
