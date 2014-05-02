@@ -78,6 +78,7 @@ public class ReportWindow extends JFrame {
         reasonsComboBox.addItemListener(new ReportWindow.ItemChangeListener());
         datesPastYr = new String[365];
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat timeFormat = new SimpleDateFormat("h:mm a");
         Calendar cal = Calendar.getInstance();
 
         for (int i = 0; i < datesPastYr.length; i++) {
@@ -103,6 +104,7 @@ public class ReportWindow extends JFrame {
 
         //Setting up centerPanel
         centerPanel = new JPanel();
+        //centerPanel.setLayout();
         textArea = new JTextArea();
         textArea.setWrapStyleWord(true);
         textArea.setEditable(false);
@@ -120,12 +122,13 @@ public class ReportWindow extends JFrame {
                 Cursor cursor = CursorBuilder.createCursor(table);
                 boolean found = cursor.findFirstRow(Collections.singletonMap("email", row.get("email")));
 
-                temp += addBuffer(dateFormat.format(row.get("visitDate")),
-                        15) + addBuffer(cursor.getCurrentRowValue(table.getColumn("fName")).toString(),15)
+                temp += addBuffer(dateFormat.format(row.get("visitDate")),15)
+                        + addBuffer(timeFormat.format(row.get("visitTime")),15)
+                        + addBuffer(cursor.getCurrentRowValue(table.getColumn("fName")).toString(),15)
                         + addBuffer(cursor.getCurrentRowValue(table.getColumn("lName")).toString(),15) + addBuffer(row.get("email").toString(),30)
                         + addBuffer(cursor.getCurrentRowValue(table.getColumn("phone")).toString(),15) + addBuffer(row.get("reason").toString(),40)
                         + addBuffer(followUpSwitcher(row.get("followUp").toString()),15) + addBuffer(row.get("Specialist").toString(),15)
-                        +  addBuffer(row.get("location").toString(),15) + "\n";
+                        + addBuffer(row.get("location").toString(),15) + "\n";
             }
 
             textArea.append(temp);
@@ -161,11 +164,12 @@ public class ReportWindow extends JFrame {
 
         //adding all panels to frame
         add(northPanel, BorderLayout.NORTH);
-        add(centerPanel, BorderLayout.WEST);
+        add(centerPanel, BorderLayout.NORTH);
         add(southPanel, BorderLayout.SOUTH);
     }
     private void addHeader() {
-        textArea.append(addBuffer("Date/Time", 15));
+        textArea.append(addBuffer("Date", 15));
+        textArea.append(addBuffer("Time", 15));
         textArea.append(addBuffer("FirstName", 15));
         textArea.append(addBuffer("LastName", 15));
         textArea.append(addBuffer("Email", 30));
@@ -229,10 +233,14 @@ public class ReportWindow extends JFrame {
         {
             if (e.getSource() == closeBtn)
             {
-                new LoginFrame();
-                setVisible(false);
-                dispose();
-                //System.exit(0);
+                try {
+                    Data.closeData();
+                    new LoginFrame();
+                    setVisible(false);
+                    dispose();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         }
     }
@@ -256,6 +264,7 @@ public class ReportWindow extends JFrame {
                 textArea.setText("");
                 addHeader();
                 DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                DateFormat timeFormat = new SimpleDateFormat("h:mm a");
 
                 try {
                     for (Row row : Data.chooseTable("visits")) {
@@ -267,38 +276,26 @@ public class ReportWindow extends JFrame {
                                 .singletonMap("email", row.get("email")));
 
                         String temp = "";
-                        temp += addBuffer(dateFormat.format(row.get("visitDate")),
-                                15)
-                                + addBuffer(
-                                cursor.getCurrentRowValue(
-                                        table.getColumn("fName"))
-                                        .toString(), 15)
-                                + addBuffer(
-                                cursor.getCurrentRowValue(
-                                        table.getColumn("lName"))
-                                        .toString(), 15)
+                        temp += addBuffer(dateFormat.format(row.get("visitDate")),15)
+                                + addBuffer(timeFormat.format(row.get("visitTime")),15)
+                                + addBuffer(cursor.getCurrentRowValue(table.getColumn("fName")).toString(), 15)
+                                + addBuffer(cursor.getCurrentRowValue(table.getColumn("lName")).toString(), 15)
                                 + addBuffer(row.get("email").toString(), 30)
-                                + addBuffer(
-                                cursor.getCurrentRowValue(
-                                        table.getColumn("phone"))
-                                        .toString(), 15)
+                                + addBuffer(cursor.getCurrentRowValue(table.getColumn("phone")).toString(), 15)
                                 + addBuffer(row.get("reason").toString(), 40)
                                 + addBuffer(row.get("followUp").toString(), 15)
                                 + addBuffer(row.get("Specialist").toString(), 15)
                                 + addBuffer(row.get("location").toString(), 15)
                                 + "\n";
 
-                        if (temp.contains(datesComboBox.getSelectedItem()
-                                .toString())
-                                && temp.contains(reasonsComboBox.getSelectedItem()
-                                .toString()))
+                        if (temp.contains(datesComboBox.getSelectedItem().toString())
+                                && temp.contains(reasonsComboBox.getSelectedItem().toString()))
                             string += temp;
 
                         textArea.append(string);
 
                     }
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
