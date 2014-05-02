@@ -32,22 +32,30 @@ public class StartupManger {
         }
         SpecialistList s = new SpecialistList();
         Admin admin = new Admin();
+        Admin.serialize();
         Admin.deSerialize();
         SpecialistList.deSerialize();
         if(Admin.admins.isEmpty()){
+            int submitted;
+            JTextField unInput = new JTextField(10);
+             JPasswordField pwInput = new JPasswordField(10);
+            do{
             JPanel adminInput = new JPanel();
-                JTextField unInput = new JTextField(10);
-                JPasswordField pwInput = new JPasswordField(10);
                 adminInput.add(new JLabel("Username: " ));
                 adminInput.add(unInput);
                 adminInput.add(Box.createHorizontalStrut(15));
                 adminInput.add(new JLabel("Password: "));
                 adminInput.add(pwInput);
-                int submitted = JOptionPane.showConfirmDialog(null, adminInput, "Please enter new Admin Username & Password.", JOptionPane.OK_CANCEL_OPTION);
+                submitted = JOptionPane.showConfirmDialog(null, adminInput, "Please enter new Admin Username & Password.", JOptionPane.OK_CANCEL_OPTION);
                 if (submitted == JOptionPane.OK_OPTION) {
                     Admin.admins.add(new AdminAccount(unInput.getText(), pwInput.getText()));
                     System.out.println(Admin.admins.toString());//test line
                 }
+                else{
+                      JOptionPane.showMessageDialog(null, "Please enter a Username and Password.", "Input Error", JOptionPane.ERROR_MESSAGE);
+
+                }
+            }while(submitted == JOptionPane.CANCEL_OPTION||unInput.getText().equals("")||pwInput.getText().equals(""));
                 new DisabilityKiosk();    
                 new AddDeleteSpecFrame();
         }

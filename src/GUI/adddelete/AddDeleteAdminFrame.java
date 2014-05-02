@@ -24,8 +24,8 @@ import javax.swing.ListSelectionModel;
 
 public class AddDeleteAdminFrame extends JFrame
 {
-    private final int WINDOW_WIDTH = 450;
-    private final int WINDOW_HEIGHT = 300;
+    private final int WINDOW_WIDTH = 800;
+    private final int WINDOW_HEIGHT = 500;
     
     private JList<String> list;
     private DefaultListModel<String> listModel;

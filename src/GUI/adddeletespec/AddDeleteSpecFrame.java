@@ -161,9 +161,13 @@ public class AddDeleteSpecFrame extends JFrame{
                 infoPanel.setEditUser(getSpecialist());
                 int submitted = JOptionPane.showConfirmDialog(null, infoPanel, "Please enter a username and password for the new account.", JOptionPane.OK_CANCEL_OPTION);
                 if (submitted == JOptionPane.OK_OPTION){
+                    if(infoPanel.getPhoto().equals("")){
                      SpecialistList.specs.set(SpecialistList.specs.indexOf(getSpecialist()),new Specialist(infoPanel.getEmailText(),infoPanel.getFirstName(),infoPanel.getLastName(),infoPanel.getRoleText(),infoPanel.getPhoneText()));
                      updateList();
                      infoPanel.clear();
+                    }else
+                       SpecialistList.specs.set(SpecialistList.specs.indexOf(getSpecialist()),new Specialist(new ImageIcon(infoPanel.getPhoto()),infoPanel.getEmailText(),infoPanel.getFirstName(),infoPanel.getLastName(),infoPanel.getRoleText(),infoPanel.getPhoneText()));
+
                 }
             }
         }

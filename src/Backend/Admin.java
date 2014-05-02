@@ -87,7 +87,7 @@ public class Admin {
 
         Table table = db.getTable(query);
         for (Row row : table) {
-            System.out.println(row.toString());//for testing
+            //System.out.println(row.toString());//for testing
             rowList.add(row);
         }
         return rowList;
