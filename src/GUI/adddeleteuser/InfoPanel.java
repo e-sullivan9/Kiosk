@@ -1,5 +1,6 @@
 package GUI.adddeleteuser;
 
+import Backend.Specialist;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -128,6 +129,13 @@ public class InfoPanel extends JPanel{
         grid.gridwidth = 2;
         add(passT, grid);
     }
+    public void clear(){
+        firstT.setText("");
+        lastT.setText("");
+        emailT.setText("");
+        userNameT.setText("");
+        passT.setText("");;
+    }
     
     //getters
     public String getFirstName(){
@@ -152,5 +160,8 @@ public class InfoPanel extends JPanel{
     
     public String getLocationText(){
         return locationI.getActionCommand();
+    }
+    public void setEditUser(Specialist a){
+        
     }
 }
