@@ -18,15 +18,6 @@ import com.sun.speech.freetts.VoiceManager;
  * @author pat
  */
 public class TextToSpeech {
-
-    public static void main(String[] args) {
-        Voice voiceKevin16 = new Voice("kevin16");
-
-        String[] thingsToSay = new String[]{
-            "hello world, my name is Pat.",};
-
-        voiceKevin16.say(thingsToSay);
-    }
 }
 
 class Voice {

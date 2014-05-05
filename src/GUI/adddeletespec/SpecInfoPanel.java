@@ -22,7 +22,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class SpecInfoPanel extends JPanel{
     
     private final int CHAR_LENGTH = 30;
-    private Image specImg;
     private JLabel first, last, photo, email, role, phone;
     private Font font = new Font("MONOSPACED", Font.PLAIN, 18);
     //Need to make passT a JPassword field but after that we need to add another
@@ -189,6 +188,7 @@ public class SpecInfoPanel extends JPanel{
         emailT.setText(a.getEmail());
         phoneT.setText(a.getPhone());
         roleT.setText(a.getRole());
+        if(photoT.getText().equals(""))
         photoT.setText(a.getPhoto().getDescription());
     }
     private class Listener implements ActionListener{

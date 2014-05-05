@@ -5,6 +5,7 @@ import Backend.User;
 import disabilitykiosk.DisabilityKiosk;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -60,6 +61,7 @@ public class SpecialistSelectionWindow extends JFrame {
             Icon picture = specialistsList.get(i).getPhoto();
             String name = specialistsList.get(i).getfName() + " " + specialistsList.get(i).getLname();
             JRadioButtonMenuItem rButton = new JRadioButtonMenuItem(name, picture, true);
+            rButton.setFont(new Font("serif",Font.BOLD, 30));
             rButton.isBorderPainted();
             radioButtons.add(rButton);
         }

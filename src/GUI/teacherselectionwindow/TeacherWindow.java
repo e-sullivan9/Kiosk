@@ -83,33 +83,14 @@ public class TeacherWindow extends JFrame
                   try {
               	Data.open();
                 user.newVisit(Data.chooseTable("visits"));
-//
-//							
-//              	
-//					User.newVisit(Data.chooseTable("visits"),temp, labelsAndFields.reasonI.getSelectedItem().toString(), 
-//							"wellesley" , labelsAndFields.emailI.getText() , labelsAndFields.firstI.getText() , labelsAndFields.lastI.getText() , 
-//							labelsAndFields.roleI.getSelectedItem().toString() ,  
-//							labelsAndFields.phoneI.getText(), "Enter specialist"); //reference speacilist!!
+
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
-                  //disabilitykiosk.setVisible(false);
+
                   new DisabilityKiosk();
                   setVisible(false);
               }
           }
       }
-    
-//    private class EditButtonListener implements ActionListener
-//    {
-//        public void actionPerformed(ActionEvent e)
-//        {
-//            if (e.getSource() == submit_Panel.edit)
-//            {
-//                setVisible(true);
-//                
-//            }
-//        }
-//    }
-}
+      }
 }

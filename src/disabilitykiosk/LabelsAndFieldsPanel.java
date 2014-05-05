@@ -61,7 +61,7 @@ public class LabelsAndFieldsPanel extends JPanel{
     public Font font = new Font("SERIF", Font.BOLD, 24);
     public Font textFieldFont = new Font("SERIF", Font.PLAIN, 18);
     
-    
+    Thread t = null;
     /*
      * Constructor
      */
@@ -368,102 +368,60 @@ public class LabelsAndFieldsPanel extends JPanel{
         {
             if(e.getSource() == firstI)
             {
-                VoiceManager vm = VoiceManager.getInstance();
-
-            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
-            String text = "Please enter your first name in the text field";
-            String string[] = text.split("  ");
-            voice.allocate();
-            for (int i = 0; i < string.length; i++) {
-                voice.speak(text);
-                }
-       voice.deallocate();
+            String text = "Please enter your first name in the text field";               
+            Speech s = new Speech(text);
+            new Thread(s).start();
+            
             }
             if(e.getSource() == lastI)
             {
-                VoiceManager vm = VoiceManager.getInstance();
-
-            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
             String text = "Please enter your last name in the text field";
-            String string[] = text.split("  ");
-            voice.allocate();
-            for (int i = 0; i < string.length; i++) {
-                voice.speak(string[i]);
-                }
-       voice.deallocate();
+            Speech s = new Speech(text);
+            new Thread(s).start();
             }
              if (e.getSource() == emailI)
         {
-             VoiceManager vm = VoiceManager.getInstance();
-
-            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
             String text = "Please enter your email address in the text field";
-            String string[] = text.split("  ");
-            voice.allocate();
-            for (int i = 0; i < string.length; i++) {
-                voice.speak(text);
-
-       }
-       voice.deallocate();
+            Speech s = new Speech(text);
+            new Thread(s).start();
         }
         if (e.getSource() == phoneI)
         {
-             VoiceManager vm = VoiceManager.getInstance();
-
-            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
             String text = "Please enter your phone number in the text field";
-            String string[] = text.split("  ");
-            voice.allocate();
-            for (int i = 0; i < string.length; i++) {
-                voice.speak(text);
-
-       }
-       voice.deallocate();
+            Speech s = new Speech(text);
+            new Thread(s).start();
         }
         if (e.getSource() == reasonI)
         {
-             VoiceManager vm = VoiceManager.getInstance();
 
-            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
             String text = "Please enter your reason for being here in the drop down list";
-            String string[] = text.split("  ");
-            voice.allocate();
-            for (int i = 0; i < string.length; i++) {
-                voice.speak(text);
-
-       }
-       voice.deallocate();
+            Speech s = new Speech(text);
+            new Thread(s).start();
         }
          if (e.getSource() == followUpI)
         {
-             VoiceManager vm = VoiceManager.getInstance();
-
-            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+//             VoiceManager vm = VoiceManager.getInstance();
+//
+//            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
+//            String text = "Please enter if this is a follow up visit. Yes or no";
+//            String string[] = text.split("  ");
+//            voice.allocate();
+//            for (int i = 0; i < string.length; i++) {
+//                voice.speak(text);
+//
+//       }
+//       voice.deallocate();
             String text = "Please enter if this is a follow up visit. Yes or no";
-            String string[] = text.split("  ");
-            voice.allocate();
-            for (int i = 0; i < string.length; i++) {
-                voice.speak(text);
-
-       }
-       voice.deallocate();
+            Speech s = new Speech(text);
+            new Thread(s).start();
         }
          if (e.getSource() == roleI)
         {
-             VoiceManager vm = VoiceManager.getInstance();
-
-            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
             String text = "Please enter your role with the school in the drop down list";
-            String string[] = text.split("  ");
-            voice.allocate();
-            for (int i = 0; i < string.length; i++) {
-                voice.speak(text);
-
-       }
-       voice.deallocate();
+            Speech s = new Speech(text);
+            new Thread(s).start();
         }
         }
-        
         public void focusLost(FocusEvent e)
         {}
     }
@@ -473,148 +431,95 @@ public class LabelsAndFieldsPanel extends JPanel{
     {
         if (e.getSource() == firstButton)
         {
-             VoiceManager vm = VoiceManager.getInstance();
-
-            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
             String text = "Please enter your first name in the text field";
-            String string[] = text.split("  ");
-            voice.allocate();
-            for (int i = 0; i < string.length; i++) {
-                voice.speak(text);
-
-       }
-       voice.deallocate();
-        }
+            Speech s = new Speech(text);
+            new Thread(s).start();
 
     }
   }
+    }
    private class lastButtonListener implements ActionListener
 {
     public void actionPerformed(ActionEvent e)
     {
         if (e.getSource() ==  lastButton)
         {
-             VoiceManager vm = VoiceManager.getInstance();
-
-            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
             String text = "Please enter your last name in the text field";
-            String string[] = text.split("  ");
-            voice.allocate();
-            for (int i = 0; i < string.length; i++) {
-                voice.speak(string[i]);
-
-       }
-       voice.deallocate();
-        }
-
+            Speech s = new Speech(text);
+            new Thread(s).start();
     }
   }
+   }
        private class emailButtonListener implements ActionListener
 {
     public void actionPerformed(ActionEvent e)
     {
         if (e.getSource() == emailButton)
         {
-             VoiceManager vm = VoiceManager.getInstance();
-
-            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
             String text = "Please enter your email address in the text field";
-            String string[] = text.split("  ");
-            voice.allocate();
-            for (int i = 0; i < string.length; i++) {
-                voice.speak(text);
-
-       }
-       voice.deallocate();
+            Speech s = new Speech(text);
+            new Thread(s).start();
         }
 
     }
   }
+       
            private class phoneButtonListener implements ActionListener
 {
     public void actionPerformed(ActionEvent e)
     {
         if (e.getSource() == phoneButton)
         {
-             VoiceManager vm = VoiceManager.getInstance();
-
-            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
             String text = "Please enter your phone number in the text field";
-            String string[] = text.split("  ");
-            voice.allocate();
-            for (int i = 0; i < string.length; i++) {
-                voice.speak(text);
-
-       }
-       voice.deallocate();
-        }
+            Speech s = new Speech(text);
+            new Thread(s).start();
 
     }
   }
+           }
                private class reasonButtonListener implements ActionListener
 {
     public void actionPerformed(ActionEvent e)
     {
         if (e.getSource() == reasonButton)
         {
-             VoiceManager vm = VoiceManager.getInstance();
-
-            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
             String text = "Please enter your reason for being here in the drop down list";
-            String string[] = text.split("  ");
-            voice.allocate();
-            for (int i = 0; i < string.length; i++) {
-                voice.speak(text);
-
-       }
-       voice.deallocate();
-        }
+            Speech s = new Speech(text);
+                t = new Thread(s);
+                t.start();
 
     }
   }
-
+               }
                private class followUpButtonListener implements ActionListener
 {
+                   
     public void actionPerformed(ActionEvent e)
     {
         if (e.getSource() == followUpButton)
         {
-             VoiceManager vm = VoiceManager.getInstance();
-
-            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
             String text = "Please enter if this is a follow up visit. Yes or no";
-            String string[] = text.split("  ");
-            voice.allocate();
-            for (int i = 0; i < string.length; i++) {
-                voice.speak(text);
-
-       }
-       voice.deallocate();
-        }
+            Speech s = new Speech(text);
+                t = new Thread(s);
+                t.start();
 
     }
   }
+               }
          private class roleButtonListener implements ActionListener
-{
+         {
     public void actionPerformed(ActionEvent e)
     {
         if (e.getSource() == roleButton)
         {
-             VoiceManager vm = VoiceManager.getInstance();
 
-            com.sun.speech.freetts.Voice voice = vm.getVoice("kevin16");
             String text = "Please enter your role with the school in the drop down list";
-            String string[] = text.split("  ");
-            voice.allocate();
-            for (int i = 0; i < string.length; i++) {
-                voice.speak(text);
-
-       }
-       voice.deallocate();
-        }
+            Speech s = new Speech(text);
+            new Thread(s).start();
 
     }
   }
+         }
          /*
           * Setting up thread for time and date
           */

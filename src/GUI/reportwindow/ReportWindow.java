@@ -3,7 +3,6 @@ import Backend.*;
 import GUI.adddeletespec.AddDeleteSpecFrame;
 import GUI.adddelete.AddDeleteAdminFrame;
 import GUI.loginwindow.LoginFrame;
-import GUI.adddeleteuser.AddDeleteUserFrame;
 
 import com.healthmarketscience.jackcess.*;
 import com.healthmarketscience.jackcess.Cursor;
@@ -26,6 +25,7 @@ import javax.swing.*;
 
 import com.healthmarketscience.jackcess.CursorBuilder;
 import com.healthmarketscience.jackcess.Row;
+import java.util.ArrayList;
 
 /**
  * Created by Pat
@@ -111,7 +111,6 @@ public class ReportWindow extends JFrame {
         textArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
         addHeader();
 
-        Data.open();
         try
         {
             Data.open();
@@ -272,13 +271,10 @@ public class ReportWindow extends JFrame {
 
                         Cursor cursor = CursorBuilder.createCursor(table);
 
-                        boolean found = cursor.findFirstRow(Collections
-                                .singletonMap("email", row.get("email")));
-
                         String temp = "";
                         temp += addBuffer(dateFormat.format(row.get("visitDate")),15)
                                 + addBuffer(timeFormat.format(row.get("visitTime")),15)
-                                + addBuffer(cursor.getCurrentRowValue(table.getColumn("fName")).toString(), 15)
+                                //+ addBuffer(cursor.getCurrentRowValue(table.getColumn("fName")).toString(), 15)
                                 + addBuffer(cursor.getCurrentRowValue(table.getColumn("lName")).toString(), 15)
                                 + addBuffer(row.get("email").toString(), 30)
                                 + addBuffer(cursor.getCurrentRowValue(table.getColumn("phone")).toString(), 15)
@@ -296,11 +292,49 @@ public class ReportWindow extends JFrame {
 
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    System.out.println("error");
                 }
             }
         }
 
+    }
+     public ArrayList<ArrayList<String>> read(String query,String key) throws IOException
+    {
+        ArrayList<ArrayList<String>> aListOfListsOfStrings = new ArrayList<ArrayList<String>>();
+        Table table = Data.open().getTable(query);
+        for(Row row: table)
+        {
+            if(row.get("email").toString().equalsIgnoreCase(key))
+            {
+                ArrayList<String> userStrings = new ArrayList<String>();
+                userStrings.add(row.get("visitDate").toString());
+                userStrings.add(row.get("visitTime").toString());
+                userStrings.add(row.get("reason").toString());
+                userStrings.add(row.get("followUp").toString());
+                userStrings.add(row.get("email").toString());
+                userStrings.add(row.get("ID").toString());
+                aListOfListsOfStrings.add(userStrings);
+            }
+        }
+        return aListOfListsOfStrings;
+    }
+      public ArrayList<ArrayList<String>> read(String query) throws IOException {
+
+        ArrayList<ArrayList<String>> aListOfListsOfStrings = new ArrayList<ArrayList<String>>();
+        Table table = Data.open().getTable(query);
+        for(Row row: table)
+        {
+            ArrayList<String> userStrings = new ArrayList<String>();
+            userStrings.add(row.get("visitDate").toString());
+            userStrings.add(row.get("visitTime").toString());
+            userStrings.add(row.get("reason").toString());
+            userStrings.add(row.get("followUp").toString());
+            userStrings.add(row.get("email").toString());
+            userStrings.add(row.get("ID").toString());
+            aListOfListsOfStrings.add(userStrings);
+                    
+        }
+        return aListOfListsOfStrings;
     }
 }
 

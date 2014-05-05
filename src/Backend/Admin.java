@@ -48,7 +48,6 @@ public class Admin {
      */
 
     public Admin() {
-    	//admins.add(new AdminAccount("username", "password"));
     }
     
     public void addAdmin(String username, String password)

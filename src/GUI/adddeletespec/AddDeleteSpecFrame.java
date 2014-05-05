@@ -27,7 +27,6 @@ import javax.swing.ListSelectionModel;
 public class AddDeleteSpecFrame extends JFrame{
     private final int WINDOW_WIDTH = 800;
     private final int WINDOW_HEIGHT = 500;
-    //private SubmitorDeleteSpec submitPanel;
     private SpecInfoPanel infoPanel;
     private JPanel buttonPanel;
     private JButton addBtn, editBtn, deleteBtn;

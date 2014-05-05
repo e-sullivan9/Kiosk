@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 /**
- *
+ * SpecialistList -> SpecialistList
  * @author Eric Sullivan
  */
 public class SpecialistList{

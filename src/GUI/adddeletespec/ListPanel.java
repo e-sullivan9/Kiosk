@@ -18,7 +18,6 @@ import javax.swing.ListSelectionModel;
  */
 public class ListPanel extends JPanel{
     
-    private final int CHAR_LENGTH = 30;
     private JLabel specLabel;
     private Font font = new Font("MONOSPACED", Font.PLAIN, 18);
     //Need to make passT a JPassword field but after that we need to add another
@@ -27,7 +26,6 @@ public class ListPanel extends JPanel{
     private ArrayList<Specialist> specs = new ArrayList<Specialist>(Backend.SpecialistList.getSpecialList());
     
     private JList list;
-    private JList nList;
     
     
     private DefaultListModel dlm;

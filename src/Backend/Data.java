@@ -22,7 +22,6 @@ public class Data {
 
     private static Database dbopen;
     private static Set<String> tableNames;
-    private static String[] nameTable;
 
     public Data() throws IOException {
 
@@ -34,8 +33,7 @@ public class Data {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        return dbopen;
+        }        return dbopen;
     }
 
     public static Table chooseTable(String table) throws IOException {

@@ -31,6 +31,7 @@ public class User {
     private String lName;
     private String role;
     private String phone;
+    private Admin a;
     private String specialistFirst;
     private String specialistLast;
     

@@ -33,7 +33,7 @@ public class Specialist implements Serializable
         this.phone =  phone;
     }
     public Specialist(String email, String fName, String lname, String role, String phone) {
-        this.photo = null;
+        this.photo = "search.jpg";
         this.email = email;
         this.fName = fName;
         this.lName = lname;
@@ -42,7 +42,6 @@ public class Specialist implements Serializable
         
     }
      public ImageIcon getPhoto() {
-       //java.net.URL imgURL = Specialist.class.getResource(photo);
         return new ImageIcon(photo,photo);
     }
 
