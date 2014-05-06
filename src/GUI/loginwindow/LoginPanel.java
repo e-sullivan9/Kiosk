@@ -21,6 +21,7 @@ public class LoginPanel extends JPanel {
     private JLabel userName;
     private JLabel passWord;
     private JButton loginButton;
+    private JButton cancelButton;
     private Font font = new Font("PLAIN", Font.PLAIN, 18);
     private JTextField userNameText;
     private JPasswordField passWordText;
@@ -36,6 +37,7 @@ public class LoginPanel extends JPanel {
         userNameText = new JTextField(CHAR_LENGTH);
         passWordText = new JPasswordField(CHAR_LENGTH);
         loginButton = new JButton("LOGIN");
+        cancelButton = new JButton("CANCEL");
 
 
         GridBagConstraints grid = new GridBagConstraints();
@@ -72,9 +74,15 @@ public class LoginPanel extends JPanel {
 
         grid.gridx = 1;
         grid.gridy = 2;
-        grid.gridwidth = 2;
+        grid.gridwidth = 1;
 
         add(loginButton, grid);
+
+        grid.gridx = 2;
+        grid.gridy = 2;
+        grid.gridwidth = 1;
+
+        add(cancelButton, grid);
 
     }
 
@@ -82,6 +90,10 @@ public class LoginPanel extends JPanel {
 
     public final JButton getLoginButton() {
         return loginButton;
+    }
+
+    public final JButton getCancelButton() {
+        return cancelButton;
     }
 
     public String getPasswordText() {

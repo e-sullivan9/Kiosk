@@ -12,6 +12,7 @@ package GUI.loginwindow;
 import javax.swing.*;
 
 import Backend.*;
+import disabilitykiosk.DisabilityKiosk;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,6 +37,10 @@ public class LoginFrame extends JFrame {
 
 		loginPanel.getLoginButton().addActionListener(onClick);
 
+        CancelButtonListener close = new CancelButtonListener();
+
+        loginPanel.getCancelButton().addActionListener(close);
+
 		add(loginPanel);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -48,6 +53,17 @@ public class LoginFrame extends JFrame {
 		setResizable(false);
 	}
 
+    private class CancelButtonListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent ae) {
+
+            if (ae.getSource() == loginPanel.getCancelButton()) {
+                dispose();
+                new DisabilityKiosk(); // cancels open new Kiosk window
+            }
+        }
+    }
+
 	private class LoginButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
@@ -55,14 +71,12 @@ public class LoginFrame extends JFrame {
 			if (e.getSource() == loginPanel.getLoginButton()) {
 				String sUserName = loginPanel.getUsernameText();
 				String sPassWord = loginPanel.getPasswordText();
-				// boolean bool = METHODNAME(sUserName, sPassWord);
 
 				/*
 				 * NEED METHOD THAT WILL ACCEPT USERNAME AND PASSWORD AS
 				 * PARAMETER AND COMPARE THAT TO EVERY USERNAME AND PASSWORD IN
 				 * THE DATABASE AND RETURN TRUE OR FALSE
 				 */
-				// if(bool) will replace line 61
 
 				boolean temp = false;
 				for (AdminAccount add : Admin.admins) {
@@ -84,6 +98,5 @@ public class LoginFrame extends JFrame {
 			}
 		}
 	}
-
 } // end of class
 
