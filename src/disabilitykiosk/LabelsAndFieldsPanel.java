@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.Hashtable;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -43,6 +44,7 @@ public class LabelsAndFieldsPanel extends JPanel{
     private ArrayList<JButton> buttonList;
     private ImageIcon microphone = new ImageIcon("src/microphone.jpg");
     private JSlider textSlider;
+    public JCheckBox cancelSpeech;
   /*
    * Numbers for enlarging text
    */
@@ -310,6 +312,13 @@ public class LabelsAndFieldsPanel extends JPanel{
         grid.gridheight = 4;
         add(textSlider, grid);
         
+        cancelSpeech = new JCheckBox("Auto Speech", true);
+        grid.gridx = GridBagConstraints.RELATIVE;
+        grid.gridy = 0;
+        grid.ipadx = 40;
+        grid.gridheight = 4;
+        add(cancelSpeech, grid);
+        
     }
     //Getters
     public String getFirst(){
@@ -362,43 +371,42 @@ public class LabelsAndFieldsPanel extends JPanel{
             
         }
     }
-        private class MyFocusListener implements FocusListener
+        public class MyFocusListener implements FocusListener
     {
         public void focusGained(FocusEvent e)
         {
-            if(e.getSource() == firstI)
+            if(e.getSource() == firstI && cancelSpeech.isSelected() == true)
             {
             String text = "Please enter your first name in the text field";               
             Speech s = new Speech(text);
             new Thread(s).start();
-            
             }
-            if(e.getSource() == lastI)
+            if(e.getSource() == lastI && cancelSpeech.isSelected() == true)
             {
             String text = "Please enter your last name in the text field";
             Speech s = new Speech(text);
             new Thread(s).start();
             }
-             if (e.getSource() == emailI)
+             if (e.getSource() == emailI&& cancelSpeech.isSelected() == true)
         {
             String text = "Please enter your email address in the text field";
             Speech s = new Speech(text);
             new Thread(s).start();
         }
-        if (e.getSource() == phoneI)
+        if (e.getSource() == phoneI && cancelSpeech.isSelected() == true)
         {
             String text = "Please enter your phone number in the text field";
             Speech s = new Speech(text);
             new Thread(s).start();
         }
-        if (e.getSource() == reasonI)
+        if (e.getSource() == reasonI && cancelSpeech.isSelected() == true)
         {
 
             String text = "Please enter your reason for being here in the drop down list";
             Speech s = new Speech(text);
             new Thread(s).start();
         }
-         if (e.getSource() == followUpI)
+         if (e.getSource() == followUpI && cancelSpeech.isSelected() == true)
         {
 //             VoiceManager vm = VoiceManager.getInstance();
 //
@@ -415,7 +423,7 @@ public class LabelsAndFieldsPanel extends JPanel{
             Speech s = new Speech(text);
             new Thread(s).start();
         }
-         if (e.getSource() == roleI)
+         if (e.getSource() == roleI && cancelSpeech.isSelected() == true)
         {
             String text = "Please enter your role with the school in the drop down list";
             Speech s = new Speech(text);
@@ -425,6 +433,7 @@ public class LabelsAndFieldsPanel extends JPanel{
         public void focusLost(FocusEvent e)
         {}
     }
+        
     private class firstButtonListener implements ActionListener
 {
     public void actionPerformed(ActionEvent e)
