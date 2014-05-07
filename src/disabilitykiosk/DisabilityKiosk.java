@@ -47,6 +47,35 @@ public class DisabilityKiosk extends JFrame
     //setUndecorated(true);
     //Specify an action on close
     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+    /*
+     * TRYING TO GET RID OF TASK BAR
+     */
+                //--Below code code are different options for 
+                //--creating full screen effect minus taskbar
+                //--no way of testing on my mac so whoever tests
+                //--can delete the code that isn't needed
+                //--don't forget to comment out the setSize method on line 45
+                //--before trying these options though
+                //--lastly, setVisible(true) is on line 107
+    
+                //--option 1--//
+//    GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+//    if(gd.isFullScreenSupported()){
+//        setUndecorated(true);
+//        gd.setFullScreenWindow(this);
+//    }else{
+//        JOptionPane.showMessageDialog(rootPane, "Full screen not supported.");
+//        setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
+//    }
+                //--option 2--//
+//    this.setSize(this.getToolkit().getScreenSize());
+                //--option 3--//
+//    setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
+//    setUndecorated(true);
+    
+    /*
+     * ABOVE CODE IS TRYING TO GET RID OF TASK BAR
+     */
     //Create a Border Layout
     setLayout(new BorderLayout());
     
