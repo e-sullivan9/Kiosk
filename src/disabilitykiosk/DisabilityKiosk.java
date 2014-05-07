@@ -42,7 +42,7 @@ public class DisabilityKiosk extends JFrame
     //Display a title
     setTitle("Disability Resource Kiosk");
     //set the window size
-    setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
+    //setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
     //setExtendedState(Frame.MAXIMIZED_vBOTH);
     //setUndecorated(true);
     //Specify an action on close
@@ -70,8 +70,8 @@ public class DisabilityKiosk extends JFrame
                 //--option 2--//
 //    this.setSize(this.getToolkit().getScreenSize());
                 //--option 3--//
-//    setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
-//    setUndecorated(true);
+    setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
+    setUndecorated(true);
     
     /*
      * ABOVE CODE IS TRYING TO GET RID OF TASK BAR
@@ -136,6 +136,7 @@ public class DisabilityKiosk extends JFrame
   {
       public void actionPerformed(ActionEvent e)
       {
+          if(!SpecialistList.getSpecialList().isEmpty()){
           boolean flag = true;
             if( labelsAndFields.getEmail().length() == 0 )
             {
@@ -169,11 +170,16 @@ public class DisabilityKiosk extends JFrame
               setVisible(false);
               new GUI.teacherselectionwindow.SpecialistSelectionWindow(user);
             }
+          
             if(flag == false)
             {
               JOptionPane.showMessageDialog(null,"Please Enter the Correct Information","Incomplete",JOptionPane.ERROR_MESSAGE);
             }
       }
+            else{
+    JOptionPane.showMessageDialog(null,"No Specailist in List","Incomplete",JOptionPane.ERROR_MESSAGE);
+  }
+}
   }
 }
 //           private class SubmitSpeechButtonListener implements ActionListener
